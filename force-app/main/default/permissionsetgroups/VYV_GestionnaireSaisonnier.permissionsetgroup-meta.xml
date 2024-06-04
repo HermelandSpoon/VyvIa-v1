@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Ensemble des droits pour un gestionnaire saisonnier</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>VYV - Gestionnaire Saisonnier</label>
+    <permissionSets>File_Explorer_Permission_Set</permissionSets>
+    <permissionSets>VYV_AccesGrandCompte</permissionSets>
+    <permissionSets>VYV_AccesPrestataire</permissionSets>
+    <permissionSets>VYV_CreationAssure</permissionSets>
+    <permissionSets>VYV_QualificationService</permissionSets>
+    <permissionSets>VYV_TraitementService</permissionSets>
+    <permissionSets>aircall__AirCall_PermissionSet</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
