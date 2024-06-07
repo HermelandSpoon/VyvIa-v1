@@ -5,10 +5,6 @@
         <default>true</default>
         <visible>true</visible>
     </applicationVisibilities>
-    <classAccesses>
-        <apexClass>EmailProcess</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
     <custom>true</custom>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
