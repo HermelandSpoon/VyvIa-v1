@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Frais_medicaux</fullName>
+    <active>true</active>
+    <label>Frais médicaux</label>
+    <picklistValues>
+        <picklist>Detail_moyen_frais_medicaux__c</picklist>
+        <values>
+            <fullName>Accompagnant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ambulance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Autres services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bloc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chambre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Forfait</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frais de sejour</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home MED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Honoraires</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Imagerie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Implant_Prothese</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Laboratoire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Molecule couteuse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pharmacie</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

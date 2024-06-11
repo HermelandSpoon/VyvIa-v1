@@ -1,0 +1,145 @@
+.b-bg-white {
+  background: white;
+}
+
+.b-border-rounded {
+  border-radius: 21px;
+}
+
+.b-mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.b-w-100 {
+  width: 100%;
+}
+
+.b-w-75 {
+  width: 75%;
+}
+
+.b-w-50 {
+  width: 50%;
+}
+
+.b-w-fit {
+  width: fit-content;
+}
+
+.b-h-100 {
+  height: 100%;
+}
+
+.b-grid {
+  display: grid;
+}
+
+.b-flex {
+  display: flex;
+}
+
+.b-fd-col {
+  flex-direction: column;
+}
+
+.b-jc-center {
+  justify-content: center;
+}
+
+.b-jc-around {
+  justify-content: space-around;
+}
+
+.b-jc-between {
+  justify-content: space-between;
+}
+
+.b-jc-start {
+  justify-content: start;
+}
+
+.b-jc-end {
+  justify-content: flex-end;
+}
+
+.b-ai-start {
+  align-items: start;
+}
+
+.b-ai-center {
+  align-items: center;
+}
+
+.b-ai-end {
+  align-items: end;
+}
+
+.b-p-rel {
+  position: relative;
+}
+
+.b-p-abs {
+  position: absolute;
+}
+
+.b-p-fixed {
+  position: fixed;
+}
+
+.b-left-0 {
+  left: 0;
+}
+
+.b-top-0 {
+  top: 0;
+}
+
+.b-z-index-top {
+  z-index: 10000;
+}
+
+.b-d-none {
+  display: none;
+}
+
+.b-overflow-scroll {
+  overflow-y: scroll;
+}
+
+.b-active-tab {
+  position: relative;
+}
+
+.b-active-tab::after {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 2px;
+  background-color: rgb(65, 148, 249);
+
+  position: absolute;
+  left: 0;
+  bottom: -0.1rem;
+}
+
+.b-link {}
+
+.b-link:hover {
+  text-decoration: underline;
+}
+
+.b-cursor-pointer {
+  cursor: pointer;
+}
+
+.b-text-center {
+  text-align: center;
+}
+
+.b-button {
+  background-color: rgb(65, 148, 249);
+  color: white;
+  border: none;
+  border-radius: 4px;
+}

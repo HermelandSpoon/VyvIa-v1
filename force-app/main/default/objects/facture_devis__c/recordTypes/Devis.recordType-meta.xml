@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Devis</fullName>
+    <active>true</active>
+    <label>Devis</label>
+    <picklistValues>
+        <picklist>Autre_justificatif__c</picklist>
+        <values>
+            <fullName>Conforme</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Irrecevable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manquant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non requis</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Decision_medicale__c</picklist>
+        <values>
+            <fullName>Infirmier</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medecin</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Justificatif_identite__c</picklist>
+        <values>
+            <fullName>Conforme</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Irrecevable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manquant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non requis</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Justificatif_medical__c</picklist>
+        <values>
+            <fullName>Conforme</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Irrecevable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manquant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non requis</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Justificatifs_attendus__c</picklist>
+        <values>
+            <fullName>Administratifs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financiers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medicaux</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ModeleEconomique__c</picklist>
+        <values>
+            <fullName>Prestation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prime%2FPrestation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Motif_de_reject__c</picklist>
+        <values>
+            <fullName>Erreur gestion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque date de facture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque date de l evenement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque de la mention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque en-tete %2F Document non-officiel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque mention Facture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque nom du patient</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manque numero de facture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mauvais nom du patient %2F Mauvais montant %2F Facturation d elements non PEC %2F Mauvaise application des couvertures</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sous_type__c</picklist>
+        <values>
+            <fullName>Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conseil</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frais Medicaux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HAD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Statut__c</picklist>
+        <values>
+            <fullName>Analyse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devis rejete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devis valide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En attente demande de pieces</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En attente validation medicale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prise en charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Statut_devis__c</picklist>
+        <values>
+            <fullName>Analyse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devis rejete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devis valide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En attente demande de pieces</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En attente validation medicale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qualification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_de_devis__c</picklist>
+        <values>
+            <fullName>Running cost</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type_de_facture__c</picklist>
+        <values>
+            <fullName>Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frais de gestion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frais medicaux</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hopital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rapatriement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>type_de_soins__c</picklist>
+        <values>
+            <fullName>Chirurgie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dialyse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maternité</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Médecine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oncologie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Psychiatrie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Réanimation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Soins de suite %2F Réhabilitation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
