@@ -1,0 +1,21 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 04-10-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <template if:false={hide}>
+        <lightning-combobox
+        name="Statut"
+        label="Statut"
+        placeholder="Choisissez la prochaine étape"
+        value={value}
+        options={options}
+        onchange={handleChange}
+        disabled={disable}
+        >
+        ></lightning-combobox>
+    </template>
+</template>

@@ -1,0 +1,13 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-04-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <template lwc:if={recordRetrieved}>
+    <c-lwc01-progression-bar-plafond ldp-record={getLdpRecord}></c-lwc01-progression-bar-plafond>
+  </template>
+  <c-lwc-dynamic-datatable record-id={recordId}></c-lwc-dynamic-datatable>
+</template>

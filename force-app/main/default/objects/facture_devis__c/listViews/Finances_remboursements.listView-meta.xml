@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finances_remboursements</fullName>
+    <columns>NAME</columns>
+    <columns>service__c</columns>
+    <columns>date_d_entree__c</columns>
+    <columns>date_de_sortie__c</columns>
+    <columns>Date_reception_facture__c</columns>
+    <columns>date_du_paiement__c</columns>
+    <columns>montant_total__c</columns>
+    <columns>devise_lookup__c</columns>
+    <columns>montant_total_en_euro__c</columns>
+    <columns>prestataire__c</columns>
+    <columns>pathologie__c</columns>
+    <columns>duree_du_sejour__c</columns>
+    <columns>commentaire__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>facture_devis__c.Remboursement</value>
+    </filters>
+    <label>Finances - Remboursements</label>
+</ListView>

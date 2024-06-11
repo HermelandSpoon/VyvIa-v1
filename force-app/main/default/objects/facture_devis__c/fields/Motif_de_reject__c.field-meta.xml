@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Motif_de_reject__c</fullName>
+    <externalId>false</externalId>
+    <label>Motif de reject</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Manque de la mention</fullName>
+                <default>false</default>
+                <label>Manque de la mention VYV IA / LLT Consulting</label>
+            </value>
+            <value>
+                <fullName>Manque date de facture</fullName>
+                <default>false</default>
+                <label>Manque date de facture</label>
+            </value>
+            <value>
+                <fullName>Manque numero de facture</fullName>
+                <default>false</default>
+                <label>Manque numéro de facture</label>
+            </value>
+            <value>
+                <fullName>Manque mention Facture</fullName>
+                <default>false</default>
+                <label>Manque mention Facture</label>
+            </value>
+            <value>
+                <fullName>Manque en-tete / Document non-officiel</fullName>
+                <default>false</default>
+                <label>Manque en-tête / Document non-officiel</label>
+            </value>
+            <value>
+                <fullName>Manque date de l evenement</fullName>
+                <default>false</default>
+                <label>Manque date de l&apos;événement  (admission et sortie)</label>
+            </value>
+            <value>
+                <fullName>Manque nom du patient</fullName>
+                <default>false</default>
+                <label>Manque nom du patient</label>
+            </value>
+            <value>
+                <fullName>Mauvais nom du patient / Mauvais montant / Facturation d elements non PEC / Mauvaise application des couvertures</fullName>
+                <default>false</default>
+                <label>Mauvais nom du patient / Mauvais montant / Facturation d&apos;éléments non PEC / Mauvaise application des couvertures</label>
+            </value>
+            <value>
+                <fullName>Erreur gestion</fullName>
+                <default>false</default>
+                <label>Erreur gestion</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

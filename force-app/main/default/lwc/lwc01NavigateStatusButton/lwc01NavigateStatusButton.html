@@ -1,0 +1,15 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-14-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="slds-float_right">
+        <a class="slds-button slds-button_brand" onclick={handleClickPrev}>Précédent</a>
+        <template if:false={hide}>
+            <a class="slds-button slds-button_brand" onclick={handleClick}>{button}</a>
+        </template>
+    </div>
+</template>

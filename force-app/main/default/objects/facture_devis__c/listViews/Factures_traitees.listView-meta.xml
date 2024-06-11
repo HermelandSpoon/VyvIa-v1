@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Factures_traitees</fullName>
+    <columns>NAME</columns>
+    <columns>service__c</columns>
+    <columns>date_d_entree__c</columns>
+    <columns>date_de_sortie__c</columns>
+    <columns>Date_reception_facture__c</columns>
+    <columns>date_du_paiement__c</columns>
+    <columns>montant_total__c</columns>
+    <columns>devise_lookup__c</columns>
+    <columns>montant_total_en_euro__c</columns>
+    <columns>prestataire__c</columns>
+    <columns>pathologie__c</columns>
+    <columns>duree_du_sejour__c</columns>
+    <columns>commentaire__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>facture__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>bon_payer__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Factures traitées</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>
