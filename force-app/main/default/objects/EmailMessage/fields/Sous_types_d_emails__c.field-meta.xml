@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sous_types_d_emails__c</fullName>
+    <externalId>false</externalId>
+    <label>Sous-types d&apos;emails</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prestataire de sante</fullName>
+                <default>false</default>
+                <label>Prestataire de santé</label>
+            </value>
+            <value>
+                <fullName>Correspondant</fullName>
+                <default>false</default>
+                <label>Correspondant</label>
+            </value>
+            <value>
+                <fullName>Prestataire logistique</fullName>
+                <default>false</default>
+                <label>Prestataire logistique</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
