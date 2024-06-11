@@ -1,0 +1,115 @@
+<template>
+  <div class="b-flex slds-m-bottom_medium">
+    <p class="b-cursor-pointer b-active-tab b-tab slds-m-right_small" data-kind="0" onclick={handleTabClick}>Pièces
+      jointes</p>
+    <p class="b-cursor-pointer b-tab" data-kind="1" onclick={handleTabClick}>{generatedFileTabLabel}</p>
+  </div>
+
+  <template if:true={showAttachedFiles}>
+    <div>
+      <div class="b-grid b-jc-between"
+        style="grid-template-columns: repeat(3, 1fr); grid-gap: 2rem; grid-auto-rows: minmax(min-content, max-content);">
+        <template for:each={files} for:item="file">
+          <div key={file.Id} class="b-h-100 b-flex b-fd-col b-jc-between b-ai-center">
+            <img src={file.renderUrl} alt={file.id} height="60">
+            <p class="b-file" data-id={file.Id}>
+              {file.Title}
+            </p>
+
+            <template lwc:if={file.selectedEntire}>
+              <div class="b-w-100 b-flex b-jc-between b-ai-center">
+                <div class="b-w-100 b-flex b-jc-center b-ai-center slds-m-right_small"
+                  style="height: 40px; border: 2px solid rgb(65, 148, 249); border-radius: 4px">
+                  <p>Document sélectionné</p>
+                </div>
+                <lightning-icon icon-name="utility:delete" size="small" onclick={handleDeselectEntireFile}
+                  data-id={file.Id}></lightning-icon>
+              </div>
+            </template>
+            <template lwc:else>
+              <div class="b-flex b-jc-between" style="height: 40px">
+                <button class="b-button slds-m-right_small" onclick={handleSelectEntireFile}
+                  data-id={file.Id}>Sélectionner le document</button>
+                <button class="b-button" onclick={handleFileClick} data-id={file.Id}>Découper le document</button>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+
+      <template if:true={selectedFileId}>
+        <div class="b-mx-auto slds-m-top_medium slds-m-top_large"
+          style="width: 50%; height: 2px; background: rgb(65, 148, 249)"></div>
+      </template>
+
+      <div lwc:ref="dummy" class="slds-m-top_large">
+        <h2 class="b-text-center slds-m-bottom_medium slds-text-heading_medium">{selectedFileTitle}</h2>
+        <template if:true={loadingFile}>
+          <div style="
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 80px;
+          ">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+          </div>
+        </template>
+        <div class="b-container" style="height: 0; overflow: hidden; transition: all ease-in 0.2s">
+          <iframe class="b-iframe" src={pdfAppUrl} frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template if:true={showNewFiles}>
+    <template lwc:if={hasGeneratedFiles}>
+      <div class="b-grid b-jc-between" style="grid-template-columns: repeat(3, 1fr); grid-gap: 2rem">
+        <template for:each={_generatedFiles} for:item="file">
+          <div key={file} class="b-flex b-fd-col b-jc-center b-ai-center">
+            <template lwc:if={file.renditionReady}>
+              <img src={file.renderUrl} alt={file.id} height="60" onerror={handleGeneratedPreviewError}>
+            </template>
+            <template lwc:else>
+              <div style="
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                height: 40px;
+              ">
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+              </div>
+            </template>
+            <p data-id={file.Id}>
+              {file.title}
+            </p>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <p class="b-w-100 b-text-center" style="color: rgba(0, 0, 0, 0.7)">Aucun document découpé</p>
+    </template>
+  </template>
+
+  <template if:true={generatingFile}>
+    <div class="b-flex b-jc-center b-ai-center"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2)">
+      <div class="slds-box b-bg-white" style="position:relative; width: 50%;">
+        <template if:true={informationError}>
+          <lightning-icon icon-name="utility:warning"></lightning-icon>
+        </template>
+
+        <p class="b-text-center">{informationMessage}</p>
+        <div style="
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 80px;
+        ">
+          <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

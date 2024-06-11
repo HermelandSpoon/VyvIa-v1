@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>factures_traiter</fullName>
+    <columns>prestataire__c</columns>
+    <columns>prestataire_logistique__c</columns>
+    <columns>service__c</columns>
+    <columns>NAME</columns>
+    <columns>date_du_devis_facture__c</columns>
+    <columns>date_d_entree__c</columns>
+    <columns>Date_reception_facture__c</columns>
+    <columns>Bon_a_payer_rapide__c</columns>
+    <columns>Montant_pris_en_charge__c</columns>
+    <columns>devise_lookup__c</columns>
+    <columns>GrandCompte__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>commentaire__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>bon_payer__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Bon_a_payer_verifie__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>commentaire__c</field>
+        <operation>notContain</operation>
+        <value>vérifié</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>notContain</operation>
+        <value>vérifié</value>
+    </filters>
+    <filters>
+        <field>date_du_paiement__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Factures à traiter</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

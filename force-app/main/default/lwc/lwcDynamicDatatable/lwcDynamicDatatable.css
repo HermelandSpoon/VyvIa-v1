@@ -1,0 +1,69 @@
+.padding-6 {
+    padding-top: 6px;
+}
+
+.checkbox-style {
+    background-color: #82358b;
+}
+
+.header-style {
+    background-color: #82358b;
+}
+
+table, tr, td {
+    border: 1px inset #82358b;
+    border-collapse: collapse;
+    border-spacing: 0;
+    word-wrap: break-word;
+    white-space: normal;
+    
+}
+.header{
+    
+    word-wrap: break-word;
+    white-space: normal; 
+    padding:1px;
+    text-align: center;
+}
+.tab-style {
+    --slds-c-tabs-item-color-border-active: #0176d3;
+    --slds-c-tabs-item-color-border-hover : #0176d3;
+    --slds-c-tabs-item-text-color : black;
+    --slds-c-tabs-item-text-color-active : #0176d3;
+    --slds-c-tabs-list-color-border : grey;
+}
+.container{
+    position: relative;
+}
+
+.list-values{
+    width: 100%;
+    max-height: 30vh;
+    overflow-y: scroll;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.list-option{
+    padding: 5px 14px;
+    font-size: 12px;
+    background: white;
+    user-select: none;
+    color: black;
+}
+
+.list-option:hover, .option-hover{
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.search-input{
+    font-size: 12px;
+}
+.icon-delete {
+    --slds-c-icon-color-foreground: white;
+    --slds-c-icon-color-background: white;
+}

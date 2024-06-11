@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Conforme</fullName>
+        <default>false</default>
+        <label>Conforme</label>
+    </customValue>
+    <customValue>
+        <fullName>Incomplet</fullName>
+        <default>false</default>
+        <label>Incomplet</label>
+    </customValue>
+    <customValue>
+        <fullName>Irrecevable</fullName>
+        <default>false</default>
+        <label>Irrecevable</label>
+    </customValue>
+    <customValue>
+        <fullName>Manquant</fullName>
+        <default>false</default>
+        <label>Manquant</label>
+    </customValue>
+    <customValue>
+        <fullName>Non requis</fullName>
+        <default>false</default>
+        <label>Non requis</label>
+    </customValue>
+    <masterLabel>Pièces justificatives</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
