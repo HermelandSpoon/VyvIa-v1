@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <custom>false</custom>
+    <layoutAssignments>
+        <layout>Account-Grand compte</layout>
+        <recordType>Account.grand_compte</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Prestataire de santé</layout>
+        <recordType>Account.prestataire_de_sante</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Prestataire logistique</layout>
+        <recordType>Account.prestataire_logistique</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-Personne</layout>
+        <recordType>Contact.personne</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CoordonneesBancaires__c-Informations Bancaire Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>LigneFacturation__c-Ligne de facturation Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>LigneFacturation__c-Ligne de facturation Layout</layout>
+        <recordType>LigneFacturation__c.Assistance</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>LigneFacturation__c-Ligne de facturation Layout</layout>
+        <recordType>LigneFacturation__c.Frais_medicaux</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lot_paiement__c-Lot de paiement Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>devise__c-Devise Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Assistance</layout>
+        <recordType>facture_devis__c.facture_assistance</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Layout</layout>
+        <recordType>facture_devis__c.Devis</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Layout</layout>
+        <recordType>facture_devis__c.Facture</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Layout</layout>
+        <recordType>facture_devis__c.Remboursement</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-Facture %2F Devis Tiers Payant</layout>
+        <recordType>facture_devis__c.facture_devis_tiers_payant</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>facture_devis__c-HAD</layout>
+        <recordType>facture_devis__c.facture_had</recordType>
+    </layoutAssignments>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.grand_compte</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Account.prestataire_de_sante</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.prestataire_logistique</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Contact.personne</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>LigneFacturation__c.Assistance</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>LigneFacturation__c.Frais_medicaux</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Devis</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Facture</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Remboursement</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.facture_assistance</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>facture_devis__c.facture_devis_tiers_payant</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.facture_had</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <userLicense>Salesforce Integration</userLicense>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ApiEnabled</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ApiUserOnly</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ChatterInternalUser</name>
+    </userPermissions>
+</Profile>
