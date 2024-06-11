@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Montant_total_PEC_devises__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF((ISNULL(Plafond_devises__c)|| (Plafond_devises__c==0)), Montant_total_devises__c  * Pourcentage_PEC__c,IF( Montant_total_devises__c&gt; Plafond_devises__c , Plafond_devises__c* Pourcentage_PEC__c, Montant_total_devises__c  * Pourcentage_PEC__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Montant total PEC en devises</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

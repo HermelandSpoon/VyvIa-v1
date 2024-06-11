@@ -123,6 +123,10 @@
         </platformActionListItems>
     </platformActionList>
     <quickActionList/>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>facture_devis__c.CoordonneesBancaire__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

@@ -1,0 +1,27 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 03-15-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <template if:true={fileID}>
+        <lightning-tabset variant="scoped">
+            <template for:each={tabs} for:item="tab">
+                <lightning-tab key={tab.value} label={tab.label} value={tab.value} onactive={setFileID}>
+                    <c-show-pdf-by-id
+                            height-in-rem={heightInRem}
+                            file-id={fileID}
+                            ispdf={ispdf}
+                            is-image={isImage}
+                    ></c-show-pdf-by-id>
+                </lightning-tab>
+            </template>
+        </lightning-tabset>
+    </template>
+
+    <template if:false={fileID}>
+        <lightning-card><div>No related PDF file found.</div></lightning-card>
+    </template>
+</template>

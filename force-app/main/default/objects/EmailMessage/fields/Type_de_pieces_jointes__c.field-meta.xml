@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_de_pieces_jointes__c</fullName>
+    <externalId>false</externalId>
+    <label>Type de pièces-jointes</label>
+    <required>false</required>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pieces justificatives d ouverture</fullName>
+                <default>false</default>
+                <label>Pièces justificatives d&apos;ouverture</label>
+            </value>
+            <value>
+                <fullName>Rapport medical</fullName>
+                <default>false</default>
+                <label>Rapport médical</label>
+            </value>
+            <value>
+                <fullName>Devis</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Devis</label>
+            </value>
+            <value>
+                <fullName>Facture</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Facture</label>
+            </value>
+            <value>
+                <fullName>Remboursement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Remboursement</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

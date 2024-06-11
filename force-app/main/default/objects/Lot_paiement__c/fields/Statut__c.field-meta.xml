@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut__c</fullName>
+    <externalId>false</externalId>
+    <label>Statut</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Qualification</fullName>
+                <default>true</default>
+                <label>Qualification</label>
+            </value>
+            <value>
+                <fullName>Pret</fullName>
+                <default>false</default>
+                <label>Prêt</label>
+            </value>
+            <value>
+                <fullName>Envoye Ebury</fullName>
+                <default>false</default>
+                <label>Envoyé Ebury</label>
+            </value>
+            <value>
+                <fullName>Traitement</fullName>
+                <default>false</default>
+                <label>Traitement</label>
+            </value>
+            <value>
+                <fullName>Confirmation</fullName>
+                <default>false</default>
+                <label>Confirmation</label>
+            </value>
+            <value>
+                <fullName>Paiement</fullName>
+                <default>false</default>
+                <label>Paiement</label>
+            </value>
+            <value>
+                <fullName>Echec</fullName>
+                <default>false</default>
+                <label>Echec</label>
+            </value>
+            <value>
+                <fullName>A payer</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>A payer</label>
+            </value>
+            <value>
+                <fullName>A synchroniser</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>A synchroniser</label>
+            </value>
+            <value>
+                <fullName>Echec paiement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Echec paiement</label>
+            </value>
+            <value>
+                <fullName>En cours de synchronisation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>En cours de synchronisation</label>
+            </value>
+            <value>
+                <fullName>Payé</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Payé</label>
+            </value>
+            <value>
+                <fullName>Traité</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Traité</label>
+            </value>
+            <value>
+                <fullName>Validé</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Validé</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

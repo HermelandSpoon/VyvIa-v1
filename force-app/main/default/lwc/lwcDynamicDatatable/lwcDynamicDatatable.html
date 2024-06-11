@@ -1,0 +1,440 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-05-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <!-- <lightning-button variant="brand" label="report" title="report" onclick={onReport} class="slds-m-left_x-small"></lightning-button> -->
+    <div class="slds-card">
+        <!--SPINNER-->
+        <template if:true={showSpinner}>
+            <div>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+            <div class="slds-tabs_default tab-style">
+                <!--TABS-->
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    <template lwc:if={showVisualisation}>
+                        <li class="slds-tabs_default__item slds-is-active" title="visualisation" role="presentation">
+                            <a class="slds-tabs_default__link" data-name="visualisation" onclick={handleChangeTab}>Visualisation</a>
+                        </li>
+                        <template if:false={hideBinSel}>
+                            <li class="slds-tabs_default__item" title="selection" role="presentation">
+                                <a class="slds-tabs_default__link" data-name="selection" onclick={handleChangeTab}>Sélection</a>
+                            </li>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <li class="slds-tabs_default__item" title="visualisation" role="presentation">
+                            <a class="slds-tabs_default__link" data-name="visualisation" onclick={handleChangeTab}>Visualisation</a>
+                        </li>
+                        <li class="slds-tabs_default__item  slds-is-active" title="selection" role="presentation">
+                            <a class="slds-tabs_default__link" data-name="selection" onclick={handleChangeTab}>Sélection</a>
+                        </li>
+                    </template>
+                </ul>
+
+                <!--FILTER AND SEARCH-->
+                <div class="slds-grid">
+                    <!--DROP DOWN LIST ON STAGE-->
+                    <div class="slds-col slds-size_9-of-10">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-p-around_small">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right slds-input-has-icon_group-right">
+                                        <lightning-icon icon-name="utility:search" alternative-text="Search Bar" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true" size="xx-small"></lightning-icon>
+                                        <input type="text" data-id="searchInput" placeholder="Search" class="slds-input" onkeydown={handleSearch}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-p-around_small">
+                                <lightning-combobox name="Date d'échéance de paiement" placeholder="Date d'échéance de paiement" options={dateList}
+                                    variant="label-hidden" onchange={handleDate} value={currentDate}></lightning-combobox> 
+                            </div>
+
+    <!-- 
+                            <div class="slds-col slds-p-around_small" data-index="date_decheance" onmouseleave={handleDropdownListClose} onmouseenter={handleDropdownListOpen}>
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+                                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none" data-index="date_decheance" onclick={toggleDateDropDownList}>
+                                                    <div role="combobox" tabindex="0" class="slds-input_faux slds-combobox__input slds-has-focus slds-combobox__input-value"  aria-expanded="true" aria-haspopup="listbox">
+                                                        <span class="slds-truncate">Date d'échéance de paiement</span>
+                                                    </div>
+                                                    <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                        <lightning-icon icon-name="utility:down" alternative-text="Roll List" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true" size="xx-small"></lightning-icon>
+                                                    </span>
+                                                </div>
+                                                <template lwc:if={showDateList}>
+                                                    <div  class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" aria-label="Placeholder for Dropdown Items" tabindex="0" aria-busy="false">
+                                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                            <template for:each={dateList} for:item="dateItem">
+                                                                <li role="presentation" class="slds-listbox__item" key={dateItem} data-index={dateItem.index} onclick={handleDateList}>
+                                                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                                                        <template lwc:if={dateItem.selected}>
+                                                                            <span class="slds-media__figure slds-listbox__option-icon">
+                                                                                <span class="slds-icon_container slds-icon-utility-check slds-current-color">
+                                                                                    <lightning-icon icon-name="utility:check" alternative-text="Selected" aria-hidden="true" size="xx-small"></lightning-icon>
+                                                                                </span>
+                                                                            </span>
+                                                                        </template>
+                                                                        <template lwc:else>
+                                                                            <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                                                        </template>
+                                                                        <span class="slds-media__body">
+                                                                            <span class="slds-truncate" title="Groups">{dateItem.itemName}</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </template>
+                                                        </ul>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <template for:each={dropDownLists} for:item="dropDownList">
+                                <div class="slds-col slds-p-around_small" key={dropDownList.name} data-index={dropDownList.index} onmouseleave={handleDropdownListClose} onmouseenter={handleDropdownListOpen}>
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-combobox_container">
+                                                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none" data-index={dropDownList.index} onclick={toggleDropDownList}>
+                                                        <div role="combobox" tabindex="0" class="slds-input_faux slds-combobox__input slds-has-focus slds-combobox__input-value" aria-labelledby="combobox-label-id-131 combobox-id-6-selected-value" id="combobox-id-6-selected-value" aria-controls="listbox-id-7" aria-expanded="true" aria-haspopup="listbox">
+                                                            <span class="slds-truncate" id="combobox-value-id-96">{dropDownList.displayName}</span>
+                                                        </div>
+                                                        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                            <lightning-icon icon-name="utility:down" alternative-text="Roll List" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true" size="xx-small"></lightning-icon>
+                                                        </span>
+                                                    </div>
+                                                    <template lwc:if={dropDownList.showList}>
+                                                        <div id="listbox-id-7" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" aria-label="Placeholder for Dropdown Items" tabindex="0" aria-busy="false">
+                                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                                <template for:each={dropDownList.items} for:item="item">
+                                                                    <li role="presentation" class="slds-listbox__item" key={itemName} data-item={item.index} data-name={dropDownList.name} data-index={dropDownList.index} onclick={handleSelect}>
+                                                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                                                            <template lwc:if={item.selected}>
+                                                                                <span class="slds-media__figure slds-listbox__option-icon">
+                                                                                    <span class="slds-icon_container slds-icon-utility-check slds-current-color">
+                                                                                        <lightning-icon icon-name="utility:check" alternative-text="Selected" aria-hidden="true" size="xx-small"></lightning-icon>
+                                                                                    </span>
+                                                                                </span>
+                                                                            </template>
+                                                                            <template lwc:else>
+                                                                                <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                                                            </template>
+                                                                            <span class="slds-media__body">
+                                                                                <span class="slds-truncate" title="Groups">{item.itemName}</span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                </template>
+                                                            </ul>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <div class="slds-col slds-p-around_small">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left-right slds-input-has-icon_group-right">
+                                        <lightning-icon icon-name="utility:search" alternative-text="Search Bar" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" aria-hidden="true" size="xx-small"></lightning-icon>
+                                        <input type="text" data-input="search" placeholder="Grand Compte" class="slds-input" oninput={handleChangeAC} onblur={handleBlurAC} value={inputValue}/>
+                                        <section if:true={searching} class="list-values">
+                                            <p for:each={options} for:item="element" key={element.id} class="list-option" onclick={handleClickOption} data-id={element.id}>{element.label}</p>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="slds-col slds-p-around_small">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+
+                                            <div class="container">
+                                                <lightning-input placeholder="Grand Compte" data-input="search" type="text" onchange={handleChangeAC} class="search-input" value={inputValue}>
+                                                </lightning-input>  
+                                                <section if:true={searching} class="list-values">
+                                                    <p for:each={options} for:item="element" key={element.id} class="list-option" onclick={handleClickOption} data-id={element.id}>{element.label}</p>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!--FILTER BUTTON-->
+                    <div class="slds-p-around_small">
+                        <!-- <lightning-button variant="outline-brand" label="Réinitialiser" title="Reset" onclick={handleReset} class="slds-m-left_x-small"></lightning-button> -->
+                        <lightning-button variant="brand" label="Filtrer" title="Filter" onclick={handleFilter} class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button-icon variant="bare" icon-name="utility:loop"   alternative-text="Réinitialiser" class="slds-m-left_x-small" title="Reset" onclick={handleReset}></lightning-button-icon>
+                    </div>
+                </div>
+
+                <!-- <template lwc:if={showVisualisation}>
+                    <div id="visualisation-details" role="tabpanel">Visualisation</div>
+                </template> -->
+                <!-- <template lwc:else> -->
+                    <table class="slds-table slds-table_fixed-layout slds-table_resizable-cols slds-no-row-hover">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <template lwc:if={showVisualisation}>
+
+                                    <th class="slds-text-align_right  checkbox-style" scope="col" style="width:3rem" data-index="-1"></th>
+                                </template>
+                                <!--SELECT ALL-->
+                                <template lwc:else>
+
+                                    <th class="slds-text-align_right  checkbox-style" scope="col" style="width:2.20rem" onclick={handleCheckbox} data-index="-1">
+                                        <div class="slds-th__action slds-th__action_form">
+                                        <div class="slds-checkbox">
+                                            <template lwc:if={selectAll}>
+                                                <input type="checkbox" name="options" tabindex="0" aria-labelledby="check-select-all-label column-group-header" checked=""/>
+                                            </template>
+                                            <template lwc:else>
+                                                <input type="checkbox" name="options" tabindex="0" aria-labelledby="check-select-all-label column-group-header"/>
+                                            </template>
+                                            <label class="slds-checkbox__label">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                            </label>
+        
+                                        </div>
+                                        </div>
+                                    </th>
+                                </template>
+
+
+                                <!--FIELDS-->
+                                
+                                <template  for:each={headerColumn} for:item="title">
+                                    <th key={title} aria-sort="none" class="slds-is-resizable slds-is-sortable  header-style" scope="col">
+                                    
+                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                            <span class="header" style="color:white;  text-align: center;">{title}</span>
+                                        </div>
+                                    
+                                    </th>
+                                </template>
+                                <template lwc:if={showVisualisation}>
+
+                                    <template lwc:if={showCol}>
+        
+                                        <th aria-sort="none" class="slds-is-resizable slds-is-sortable  header-style" scope="col">
+                                        
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                <span class="header" style="color:white;  text-align: center;" title="Name">Contrevaleur en euros validée Ebury</span>
+                                            </div>
+                                        
+                                        </th> 
+                                    </template>
+                                </template>
+                            </tr>
+                        </thead>
+                        
+                        <!--TABLE BODY-->
+                        <tbody>
+                <template if:false={showSpinner}>
+
+                            <template for:each={lstFinances} for:item="fin">
+                                <tr aria-selected="false" class="slds-hint-parent" key={fin.Id}>
+                                    <template lwc:if={showVisualisation}>
+                                        
+                                        <td class="slds-text-align_right  checkbox-style" role="gridcell">
+                                            <template if:false={hideBinSel}>
+                                                <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" variant="border-inverse" class="slds-m-left_xx-small icon-delete"  title="Delete" onclick={handleDelete} data-index={fin.index} data-id={fin.Id}></lightning-button-icon>
+                                            </template>
+                                        </td>
+                                    </template>
+                                    <template lwc:else>
+                                        <td class="slds-text-align_right  checkbox-style" role="gridcell">
+                                            <div class="slds-checkbox" onclick={handleCheckbox} data-index={fin.index} data-id={fin.Id}>
+                                                <template lwc:if={fin.selected}>
+                                                    <input type="checkbox" name="options" aria-labelledby="check-button-label-01 column-group-header" checked=""/>
+                                                </template>
+                                                <template lwc:else>
+                                                    <input type="checkbox" name="options" aria-labelledby="check-button-label-01 column-group-header"/>
+                                                </template>
+                                                <label class="slds-checkbox__label">
+                                                    <span class="slds-checkbox_faux"></span>
+                                                    <span class="slds-form-element__label slds-assistive-text">Select item</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </template>
+                                    
+
+                                    <!--DATA-->
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Name"><a href={fin.FactureUrl} target="_blank">{fin.Name}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Service"><a href={fin.ServiceUrl} target="_blank">{fin.service__r.CaseNumber}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Date reception">{fin.Date_reception_facture__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Montant">{fin.Montant_pris_en_charge__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Devise"><a href={fin.deviseLookupUrl} target="_blank">{fin.devise_lookup__r.Code_ISO4217__c}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Amount">{fin.Contrevaleur_montant_total_PEC_c__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Prestataire"><a href={fin.EmetteurFactureUrl} target="_blank">{fin.Emetteur_facture__r.Name}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Destinataire Paiement"><a href={fin.DestinatairePaiementUrl} target="_blank">{fin.DestinatairePaiement__r.Name}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Date echeance">{fin.Date_echeance__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Date de mise en paiement">{fin.Date_de_mise_en_paiement__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Grand Compte">{fin.GrandCompte__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Formule"><a href={fin.FormuleUrl} target="_blank">{fin.Formule__r.Name}</a></div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Modele Economique">{fin.ModeleEconomique__c}</div>
+                                    </td>
+                                    <td class="" role="gridcell">
+                                        <div class="slds-wrap" title="Statut">{fin.Statut__c}</div>
+                                    </td>
+
+                                    <template lwc:if={showVisualisation}>
+                                        <template lwc:if={showCol}>
+                                            <td class="" role="gridcell">
+                                                <div class="slds-wrap" title="Contrevaleur validée">{fin.Contrevaleur_en_euros_validee_Ebury__c}</div>
+                                            </td>
+                                        </template>
+                                        <!-- <td class=" checkbox-style" role="gridcell">
+                                            <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" class="slds-m-left_xx-small" title="Delete" onclick={handleDelete} data-index={fin.index} data-id={fin.Id}></lightning-button-icon>
+                                        </td> -->
+                                    </template>
+                                </tr>
+                            </template>
+                            <tr aria-selected="false" class="slds-hint-parent" >
+                                <td class="slds-text-align_right  checkbox-style" role="gridcell">
+                                </td>
+                                <!--DATA-->
+                                
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Name"><strong>Total</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Service"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Date reception"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Montant"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Devise"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Amount"><strong>{totalAmount}</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Prestataire"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Destinataire Paiement"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Date echeance"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Date de mise en paiement"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Grand Compte"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Formule"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Modele Economique"><strong>/</strong></div>
+                                </td>
+                                <td class="" role="gridcell">
+                                    <div class="slds-truncate" title="Statut"><strong>/</strong></div>
+                                </td>
+                                <template lwc:if={showVisualisation}>
+
+                                    <template lwc:if={showCol}>
+        
+                                        <td class="" role="gridcell">
+                                            <div class="slds-truncate" title="Contrevaleur validée"><strong>{totalValide}</strong></div>
+                                        </td>
+                                    </template>
+                                </template>
+                                
+                            </tr>
+        </template>
+
+                        </tbody>
+                    </table>
+
+                <!-- </template> -->
+            </div>
+            <div slot="footer">
+                <!--SHOW PAGINATION ONLY IF MORE THAN 1 PAGE-->
+                <template lwc:if={moreThanOnePage}>
+                    <div class="slds-grid slds-grid_align-end">
+                        <div class="slds-col">
+                            <template lwc:if={isFirstPage}>
+                                <lightning-button-icon class="slds-float_left" icon-name="utility:chevronleft"  variant="container" alternative-text="Previous" title="Previous" disabled=""></lightning-button-icon>
+                            </template>
+                            <template lwc:else>
+                                <lightning-button-icon class="slds-float_left" icon-name="utility:chevronleft"  variant="container" alternative-text="Previous" title="Previous" onclick={handlePrevious}></lightning-button-icon>
+                            </template>
+                        </div>
+                        <div class="slds-col">
+                            <p class="padding-6">Page {pageNumber}/{paginationNumberOfPages}</p>
+                        </div>
+                        <div class="slds-col">
+                            <template lwc:if={isLastPage}>
+                                <lightning-button-icon class="slds-float_right" icon-name="utility:chevronright"  variant="container" alternative-text="Next" title="Next" disabled=""></lightning-button-icon>
+                            </template>
+                            <template lwc:else>
+                                <lightning-button-icon class="slds-float_right" icon-name="utility:chevronright"  variant="container" alternative-text="Next" title="Next" onclick={handleNext}></lightning-button-icon>
+                            </template>    
+                        </div>
+                    </div>
+                </template>
+            
+                <template lwc:if={showSelection}>
+                    <div class="slds-grid slds-grid_align-end">
+                        <div class="slds-col slds-p-around_small">
+                            <lightning-button variant="brand" label="Enregistrer" title="Enregistrer" class="slds-m-left_x-small" onclick={handleRegister}></lightning-button>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={moreThanOnePage}>
+                    <template if:false={showSelection}>
+                        <div style="height: 25px; background-color:white"></div> 
+                    </template>
+                </template>
+            </div>
+
+    </div>
+</template>

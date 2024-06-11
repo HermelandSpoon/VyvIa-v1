@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Detail_moyen_frais_medicaux__c</fullName>
+    <externalId>false</externalId>
+    <label>Détail du moyen frais médicaux</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accompagnant</fullName>
+                <default>false</default>
+                <label>Accompagnant</label>
+            </value>
+            <value>
+                <fullName>Ambulance</fullName>
+                <default>false</default>
+                <label>Ambulance</label>
+            </value>
+            <value>
+                <fullName>Autres services</fullName>
+                <default>false</default>
+                <label>Autres services</label>
+            </value>
+            <value>
+                <fullName>Bloc</fullName>
+                <default>false</default>
+                <label>Bloc</label>
+            </value>
+            <value>
+                <fullName>Chambre</fullName>
+                <default>false</default>
+                <label>Chambre</label>
+            </value>
+            <value>
+                <fullName>Forfait</fullName>
+                <default>false</default>
+                <label>Forfait</label>
+            </value>
+            <value>
+                <fullName>Frais de sejour</fullName>
+                <default>false</default>
+                <label>Frais de séjour</label>
+            </value>
+            <value>
+                <fullName>Home MED</fullName>
+                <default>false</default>
+                <label>Home MED</label>
+            </value>
+            <value>
+                <fullName>Honoraires</fullName>
+                <default>false</default>
+                <label>Honoraires</label>
+            </value>
+            <value>
+                <fullName>Imagerie</fullName>
+                <default>false</default>
+                <label>Imagerie</label>
+            </value>
+            <value>
+                <fullName>Implant_Prothese</fullName>
+                <default>false</default>
+                <label>Implant / Prothèse</label>
+            </value>
+            <value>
+                <fullName>Kine</fullName>
+                <default>false</default>
+                <label>Kiné</label>
+            </value>
+            <value>
+                <fullName>Laboratoire</fullName>
+                <default>false</default>
+                <label>Laboratoire</label>
+            </value>
+            <value>
+                <fullName>Molecule couteuse</fullName>
+                <default>false</default>
+                <label>Molécule coûteuse</label>
+            </value>
+            <value>
+                <fullName>Pharmacie</fullName>
+                <default>false</default>
+                <label>Pharmacie</label>
+            </value>
+            <value>
+                <fullName>Franchise</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Franchise</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

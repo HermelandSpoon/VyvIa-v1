@@ -1,0 +1,125 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-04-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<template>
+    <!-- <div style="background-color:white; padding:0.5rem">
+        <template if:true={showButton}>
+            <div align="right">
+
+                <lightning-button variant="brand" label={nextLabel}
+                    onclick={handleClick}></lightning-button>
+            </div>
+
+        </template> 
+        <template if:false={showButton}>
+            <template if:true={EnvoyerAEbury}>
+                <div style="display: flex;flex-direction: row;gap: 10px;font-size: 20px;text-align:center;">
+                    <p>{EnvoyerAEbury}</p>
+                    <lightning-icon icon-name="standard:network_contract" alternative-text="Ebury"
+                        size="small" title="Ebury"></lightning-icon>
+                </div>
+            </template>
+        </template>
+    </div> -->
+    <lightning-card>
+        <template if:true={EnvoyerAEbury}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <span class="slds-text-heading_medium">{EnvoyerAEbury}</span>
+                <div class="slds-p-around_medium">
+                    <lightning-icon icon-name="custom:custom95" alternative-text="Ebury" size="small" title="Ebury"></lightning-icon>
+                </div>
+            </div>
+        </template>
+
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_2-of-3">
+                <div class="slds-text-heading_medium" style="margin-left: 15px;font-weight: bold;">Informations financières</div>
+            </div>
+            <template if:true={showButton}>
+                <div class="slds-col slds-size_1-of-3">
+                    <div class="slds-float_right slds-p-right_small">
+                        <lightning-button variant="brand" label={nextLabel} onclick={handleClick}></lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size_4-of-8">
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-size_3-of-12 slds-p-right_medium">
+                            <lightning-input type="number" label="Plafond autorisé" value={plafond} step="0.01"
+                                onchange={handlePlafondChange} onblur={handlePlafondBlur}></lightning-input>
+
+                        </div>
+
+                        <div class="slds-size_3-of-12 slds-p-right_medium">
+                            <!-- <lightning-input type="number" label="Montant total en euro" value={montant} step="0.01" onchange={handleMontantChange}></lightning-input> -->
+                            <lightning-input type="number" label="Montant total en euros" value={montant} step="0.01"
+                                readonly></lightning-input>
+
+                        </div>
+
+                        <div class="slds-size_3-of-12 slds-p-right_medium">
+                            <lightning-input type="number" label="Disponible" value={diff} step="0.01"
+                                readonly></lightning-input>
+                        </div>
+                        <div class="slds-size_3-of-12 slds-p-right_medium">
+                            <lightning-input type="number" label="Nombre d'éléments du LDP" value={nombreEle}
+                                readonly></lightning-input>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-size_4-of-8 slds-p-right_medium">
+                    <!-- <lightning-progress-bar value={percentage} size="large" variant="circular"></lightning-progress-bar> -->
+                    <div class="slds-progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"
+                        role="progressbar">
+                        <span class="slds-progress-bar__value slds-progress-bar__value_success slds-progress-bar_circular" style={width}>
+                            <span class="slds-assistive-text">Progress: {percentage}</span>
+                        </span>
+                    </div>
+                    <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small" id="progress-bar-label-id-1">
+                        <span>0,00€</span><span>{formattedPlafond}€</span>
+                    </div>
+                </div>
+
+                <div class="slds-size_4-of-8 slds-p-right_medium">
+                    <div class="slds-grid slds-wrap slds-p-top_medium">
+                        <template if:true={showPret}>
+
+                            <div class="slds-size_3-of-12 slds-p-right_medium">
+                                <!-- <lightning-input type="number" label="Montant total en euro" value={montant} step="0.01" onchange={handleMontantChange}></lightning-input> -->
+                                <lightning-input type="checkbox" label="Prêt pour refacturation" checked={pretRefac}
+                                    onchange={handleCheckboxChange}></lightning-input>
+                            </div>
+                        </template>
+                        <template if:true={showMontantValide}>
+
+                            <div class="slds-size_3-of-12 slds-p-right_medium">
+                                <!-- <lightning-input type="number" label="Montant total en euro" value={montant} step="0.01" onchange={handleMontantChange}></lightning-input> -->
+                                <lightning-input type="number" label="Montant total en euros validé" value={montantValide}
+                                    step="0.01" readonly></lightning-input>
+                            </div>
+                        </template>
+                        <template if:true={showError}>
+
+                            <div class="slds-size_6-of-12 slds-p-right_medium">
+                                <!-- <lightning-input type="number" label="Montant total en euro" value={montant} step="0.01" onchange={handleMontantChange}></lightning-input> -->
+                                <lightning-textarea label="Erreur" value={errorMsg} readonly></lightning-textarea>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </lightning-card>
+</template>

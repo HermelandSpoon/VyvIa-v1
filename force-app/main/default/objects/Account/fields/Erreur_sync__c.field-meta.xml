@@ -5,6 +5,7 @@
     <label>Erreur de synchronisation</label>
     <length>32768</length>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Html</type>
     <visibleLines>25</visibleLines>
 </CustomField>

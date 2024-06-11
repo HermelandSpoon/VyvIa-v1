@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sous_type__c</fullName>
+    <externalId>false</externalId>
+    <label>Sous-type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Frais Medicaux</fullName>
+                <default>false</default>
+                <label>Frais médicaux</label>
+            </value>
+            <value>
+                <fullName>Assistance</fullName>
+                <default>false</default>
+                <label>Assistance</label>
+            </value>
+            <value>
+                <fullName>Conseil</fullName>
+                <default>false</default>
+                <label>Conseil</label>
+            </value>
+            <value>
+                <fullName>HAD</fullName>
+                <default>false</default>
+                <label>HAD</label>
+            </value>
+            <value>
+                <fullName>Correspondant</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Correspondant</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Prestataire de sante</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prestataire de santé</label>
+            </value>
+            <value>
+                <fullName>Prestataire logistique</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Prestataire logistique</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
