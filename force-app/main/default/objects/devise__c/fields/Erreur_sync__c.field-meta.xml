@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>PaysBeneficiaire__c</fullName>
+    <fullName>Erreur_sync__c</fullName>
     <externalId>false</externalId>
-    <label>Adresse de la banque</label>
-    <trackHistory>false</trackHistory>
+    <label>Erreur lors du synchronisation</label>
+    <length>32768</length>
     <trackTrending>false</trackTrending>
-    <type>Address</type>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
 </CustomField>
