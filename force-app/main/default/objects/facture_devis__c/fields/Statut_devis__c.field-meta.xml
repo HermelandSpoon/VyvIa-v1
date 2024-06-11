@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut_devis__c</fullName>
+    <externalId>false</externalId>
+    <label>Statut devis</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Analyse</fullName>
+                <default>false</default>
+                <label>Analyse</label>
+            </value>
+            <value>
+                <fullName>En attente demande de pieces</fullName>
+                <default>false</default>
+                <label>En attente demande de pièces</label>
+            </value>
+            <value>
+                <fullName>En attente validation medicale</fullName>
+                <default>false</default>
+                <label>En attente validation médicale</label>
+            </value>
+            <value>
+                <fullName>Qualification</fullName>
+                <default>false</default>
+                <label>Qualification</label>
+            </value>
+            <value>
+                <fullName>Devis valide</fullName>
+                <default>false</default>
+                <label>Devis validé</label>
+            </value>
+            <value>
+                <fullName>Devis rejete</fullName>
+                <default>false</default>
+                <label>Devis rejeté</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
