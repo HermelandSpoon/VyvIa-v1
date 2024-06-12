@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Factures_traiter_2</fullName>
+    <columns>NAME</columns>
+    <columns>service__c</columns>
+    <columns>date_du_paiement__c</columns>
+    <columns>montant_total_en_euro__c</columns>
+    <columns>prestataire__c</columns>
+    <columns>RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>montant_total_en_euro__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>date_du_paiement__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Visible_pour_le_GC__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Facture_trait_e__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>🌐 Factures à traiter (GC)</label>
+    <sharedTo>
+        <allPartnerUsers></allPartnerUsers>
+    </sharedTo>
+</ListView>

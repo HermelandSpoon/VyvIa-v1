@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Factures_saisir</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND (4 OR 5)</booleanFilter>
+    <columns>prestataire__c</columns>
+    <columns>prestataire_logistique__c</columns>
+    <columns>service__c</columns>
+    <columns>NAME</columns>
+    <columns>date_du_paiement__c</columns>
+    <columns>montant_total_en_euro__c</columns>
+    <columns>commentaire__c</columns>
+    <columns>montant_total__c</columns>
+    <columns>devise_lookup__c</columns>
+    <columns>Montant_pris_en_charge__c</columns>
+    <columns>Montant_copay__c</columns>
+    <columns>Montant_negociation__c</columns>
+    <columns>Date_reception_facture__c</columns>
+    <columns>GrandCompte__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>date_du_paiement__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>facture_devis__c.facture_devis_tiers_payant</value>
+    </filters>
+    <filters>
+        <field>facture__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>bon_payer__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Bon_a_payer_rapide__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Liste TP pour date du paiement</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

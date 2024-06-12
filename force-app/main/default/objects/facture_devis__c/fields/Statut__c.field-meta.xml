@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut__c</fullName>
+    <externalId>false</externalId>
+    <label>Statut</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Analyse</fullName>
+                <default>false</default>
+                <label>Analyse</label>
+            </value>
+            <value>
+                <fullName>En attente demande de pieces</fullName>
+                <default>false</default>
+                <label>En attente demande de pièces</label>
+            </value>
+            <value>
+                <fullName>En attente validation medicale</fullName>
+                <default>false</default>
+                <label>En attente validation médicale</label>
+            </value>
+            <value>
+                <fullName>Qualification</fullName>
+                <default>false</default>
+                <label>Qualification</label>
+            </value>
+            <value>
+                <fullName>Validation DG</fullName>
+                <default>false</default>
+                <label>Validation DG</label>
+            </value>
+            <value>
+                <fullName>Devis valide</fullName>
+                <default>false</default>
+                <label>Devis validé</label>
+            </value>
+            <value>
+                <fullName>Devis rejete</fullName>
+                <default>false</default>
+                <label>Devis rejeté</label>
+            </value>
+            <value>
+                <fullName>Bon a payer</fullName>
+                <default>false</default>
+                <label>Bon à payer</label>
+            </value>
+            <value>
+                <fullName>Mise en paiement</fullName>
+                <default>false</default>
+                <label>Mise en paiement</label>
+            </value>
+            <value>
+                <fullName>Envoye Ebury</fullName>
+                <default>false</default>
+                <label>Envoyé Ebury</label>
+            </value>
+            <value>
+                <fullName>Echec Paiement</fullName>
+                <default>false</default>
+                <label>Echec Paiement</label>
+            </value>
+            <value>
+                <fullName>Facture rejetee</fullName>
+                <default>false</default>
+                <label>Facture rejetée</label>
+            </value>
+            <value>
+                <fullName>Facture payee</fullName>
+                <default>false</default>
+                <label>Facture payée</label>
+            </value>
+            <value>
+                <fullName>Facture refacturee</fullName>
+                <default>false</default>
+                <label>Facture refacturée</label>
+            </value>
+            <value>
+                <fullName>Remboursement rejete</fullName>
+                <default>false</default>
+                <label>Remboursement rejeté</label>
+            </value>
+            <value>
+                <fullName>Rembourse</fullName>
+                <default>false</default>
+                <label>Remboursé</label>
+            </value>
+            <value>
+                <fullName>Remboursement refacture</fullName>
+                <default>false</default>
+                <label>Remboursement refacturé</label>
+            </value>
+            <value>
+                <fullName>Prise en charge</fullName>
+                <default>false</default>
+                <label>Prise en charge</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

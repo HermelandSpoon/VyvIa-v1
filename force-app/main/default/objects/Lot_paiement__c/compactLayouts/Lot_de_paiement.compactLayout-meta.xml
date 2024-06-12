@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lot_de_paiement</fullName>
+    <fields>Name</fields>
+    <fields>Date_de_creation__c</fields>
+    <fields>Statut__c</fields>
+    <fields>ID_lot_paiement_ebury__c</fields>
+    <fields>Nombre_lignes_payees__c</fields>
+    <fields>Nombre_lignes_rejetees__c</fields>
+    <fields>etat__c</fields>
+    <label>Lot de paiement</label>
+</CompactLayout>

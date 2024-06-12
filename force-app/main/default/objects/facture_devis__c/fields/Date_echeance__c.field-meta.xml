@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_echeance__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( 
+						RecordType.Name == &quot;Facture&quot;, 
+						IF( 
+										Bon_a_payer_rapide__c, 
+										Date_de_mise_en_paiement__c + 5, 
+										Date_reception_facture__c + Emetteur_facture__r.Modalites_paiement__c), 
+						IF( 
+										RecordType.Name == &quot;Remboursement&quot;, 
+										Date_reception_facture__c + Modalites_de_remboursement__c, 
+										NULL ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Date d’échéance</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Decision_1</name>
+        <label>Decision 1</label>
+        <locationX>270</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Update_LDP_payee</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Statut rembourse</defaultConnectorLabel>
+        <rules>
+            <name>Statut_Echec</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Statut__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Echec Paiement</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Statut__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Echec Paiement</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_LDP</targetReference>
+            </connector>
+            <label>Statut Echec</label>
+        </rules>
+        <rules>
+            <name>Statut_Facture_Payee</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Statut__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Facture payee</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Statut__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Facture payee</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_LDP_payee</targetReference>
+            </connector>
+            <label>Statut Facture Payee</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>NombreLignePayee</name>
+        <dataType>Number</dataType>
+        <expression>IF(ISNULL({!Get_lot_de_paiement.Nombre_lignes_payees__c}), 1, {!Get_lot_de_paiement.Nombre_lignes_payees__c}+1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>Nombrelignerejetee</name>
+        <dataType>Number</dataType>
+        <expression>IF(ISNULL({!Get_lot_de_paiement.Nombre_lignes_rejetees__c}), 1, {!Get_lot_de_paiement.Nombre_lignes_rejetees__c}+1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>LotDePaiement-TRIG-UpdateNombre {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>LotDePaiement-TRIG-UpdateNombre</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_lot_de_paiement</name>
+        <label>Get lot de paiement</label>
+        <locationX>270</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Lot_paiement__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lot_paiement__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Fin</name>
+        <label>Update Fin</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <inputAssignments>
+            <field>Lot_paiement__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_LDP</name>
+        <label>Update LDP</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Update_Fin</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Nombre_lignes_rejetees__c</field>
+            <value>
+                <elementReference>Nombrelignerejetee</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Lot_paiement__r</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_LDP_payee</name>
+        <label>Update LDP payee</label>
+        <locationX>270</locationX>
+        <locationY>947</locationY>
+        <inputAssignments>
+            <field>Nombre_lignes_payees__c</field>
+            <value>
+                <elementReference>NombreLignePayee</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record.Lot_paiement__r</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>144</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_lot_de_paiement</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Statut__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Echec Paiement</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Statut__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Facture payee</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Statut__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Rembourse</stringValue>
+            </value>
+        </filters>
+        <object>facture_devis__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
