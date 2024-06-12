@@ -1,0 +1,603 @@
+/**
+ * @File Name          : qsydFileExplorerControllerTest.cls
+ * @Description        : 
+ * @Last Modified On   : 2022-12-09
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+**/
+
+@IsTest
+global with sharing class qsydFileExplorerControllerTest {
+
+    public static id getSysAdminProfileId() {
+
+        return ([Select Id From Profile
+            Where name = 'Administrateur système'
+            OR name = 'System Administrator'
+            OR name = 'Amministratore del sistema'
+            OR name = 'Systemadministrator'
+            OR name = 'Systemadministratör'
+            OR name = 'Administrador do sistema'
+            OR name = 'Systeembeheerder'
+            OR name = 'Systemadministrator'
+            LIMIT 1
+        ].Id);
+    }
+
+    // Create Test users with unique username
+    public static User createTestUser(String profileId, String firstName, String lastName) {
+
+        // Generate a unique identifier
+        String hashString = '1000' + String.valueOf(Datetime.now().formatGMT('yyyy-MM-dd HH:mm:ss.SSS'));
+        Blob hash = Crypto.generateDigest('MD5', Blob.valueOf(hashString));
+        String hexDigest = EncodingUtil.convertToHex(hash);
+
+        // Create user
+        User user = new User(
+            Firstname = firstName,
+            LastName = lastName,
+            Email = hexDigest + '@test.org',
+            Username = hexDigest + '@test.org',
+            EmailEncodingKey = 'ISO-8859-1',
+            Alias = hexDigest.substring(18, 23),
+            TimeZoneSidKey = 'Europe/Paris',
+            LocaleSidKey = 'fr_FR_EURO',
+            LanguageLocaleKey = 'fr',
+            ProfileId = ProfileId,
+            UserRoleId = null);
+
+        return user;
+    }
+
+    private static final String SIG_B64 = 'aSBhbSBhIHNpZ25hdHVyZQ==';
+
+    @TestSetup static void setupTestData() {
+        
+        User SysAdminUser = createTestUser(getSysAdminProfileId(), 'Test', 'Spoon');
+        insert SysAdminUser;
+
+        // Create LinkedEntity Record
+        Account a = new Account(Name = 'TestAccount');
+        insert a;
+
+        //Create ContentVersion Record 
+        ContentVersion contentVersion = new ContentVersion(
+                Title = 'Penguins',
+                ReasonForChange = 'update',
+                PathOnClient = 'Penguins.ppt',
+                VersionData = Blob.valueOf(SIG_B64),
+                IsMajorVersion = true
+        );
+        INSERT contentVersion;
+        List<ContentDocument> contentDocumentList = [SELECT Id, Title, LatestPublishedVersionId FROM ContentDocument WHERE LatestPublishedVersionId = :contentVersion.Id];
+
+        //Create ContentDocumentLink Record 
+        ContentDocumentLink cdl = New ContentDocumentLink();
+        cdl.LinkedEntityId = a.id;
+        cdl.ContentDocumentId = contentDocumentList[0].Id;
+        cdl.shareType = 'V';
+        INSERT cdl;
+
+        //Create Folder Record
+        List<FileExplorerFolder__c> lstqFolder = new List<FileExplorerFolder__c> {
+            new FileExplorerFolder__c(LinkedEntityId__c = a.Id, Label__c = 'qFolder'), 
+            new FileExplorerFolder__c(LinkedEntityId__c = a.Id, Label__c = 'qFolder2'),
+            new FileExplorerFolder__c(LinkedEntityId__c = a.Id, Label__c = 'qFolder3')
+        };
+        INSERT lstqFolder;
+  
+        Account a2 = new Account(Name = 'TestAccount2');
+        INSERT a2;
+        
+        ContentVersion contentVersion2 = new ContentVersion(
+                Title = 'Penguins2',
+                ReasonForChange = 'update',
+                PathOnClient = 'Penguins2.jpg',
+                VersionData = Blob.valueOf(SIG_B64),
+                IsMajorVersion = true,
+                FirstPublishLocationId = a2.Id
+        );
+        INSERT contentVersion2;
+        // FileExplorerFile__c qFile = new FileExplorerFile__c(LinkedEntityId__c = a.Id, Label__c = 'Penguins');
+        // INSERT qFile;
+        // FileExplorerFile__c qFile2 = new FileExplorerFile__c(LinkedEntityId__c = a2.Id, Label__c = 'new_file');
+        // INSERT qFile2;
+    }
+
+    @IsTest
+    private static void given_matchedContentDocumentId_when_getLatestContentVersion_success() {
+        setupTestData();
+        Test.startTest();
+        String contentDocumentId;
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+
+        List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :a.Id AND ContentDocument.Title = 'Penguins'];
+        if (cdlList.size() > 0) {
+            contentDocumentId = cdlList[0].ContentDocumentId;
+        }
+        List<ContentVersion> expectedCV = [SELECT Id, VersionNumber, ReasonForChange, LastModifiedDate FROM ContentVersion WHERE Title = 'Penguins' AND PathOnClient = 'Penguins.ppt'];
+
+        //System.assertEquals(expectedCV[0].Id, ((ContentVersion) JSON.deserialize(qsydFileExplorerController.getLatestContentVersion(contentDocumentId), ContentVersion.class)).Id);
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_wrongContentDocumentId_when_getLatestContentVersion_null() {
+        setupTestData();
+        Test.startTest();
+        String actual = qsydFileExplorerController.getLatestContentVersion('ABCD');
+        System.assertEquals(null, actual);
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_validInputs_on_setFolder() {
+        setupTestData();
+        Test.startTest();
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+
+        List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :a.Id AND ContentDocument.Title = 'Penguins'];
+
+        String contentDocumentId = cdlList[0].ContentDocumentId;
+        List<Id> contentDocumentIds = new List<Id>();
+        contentDocumentIds.add(contentDocumentId);
+
+        FileExplorerFile__c penguinsFileBefore = [SELECT Id, Folder__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND ContentDocumentId__c = :contentDocumentId LIMIT 1];
+
+        FileExplorerFolder__c qFolder = [SELECT Id FROM FileExplorerFolder__c WHERE Label__c = 'qFolder' LIMIT 1];
+
+        System.assertEquals(null, penguinsFileBefore.Folder__c);
+        qsydFileExplorerController.setFolder(contentDocumentIds, qFolder.Id);
+
+        FileExplorerFile__c penguinsFileAfter = [SELECT Id, Folder__c FROM FileExplorerFile__c WHERE Id = :penguinsFileBefore.Id];
+
+        System.assertEquals(qFolder.Id, penguinsFileAfter.Folder__c);
+
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_validInputs_on_updateTags() {
+        setupTestData();
+        Test.startTest();
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+
+        List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :a.Id AND ContentDocument.Title = 'Penguins'];
+
+        String contentDocumentId = cdlList[0].ContentDocumentId;
+        List<Id> contentDocumentIds = new List<Id>();
+        contentDocumentIds.add(contentDocumentId);
+
+        FileExplorerFile__c penguinsFileBefore = [SELECT Id, Tags__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND ContentDocumentId__c = :contentDocumentId LIMIT 1];
+
+        System.assertEquals(null, penguinsFileBefore.Tags__c);
+        qsydFileExplorerController.updateTags(penguinsFileBefore.Id, 'tags;tag');
+
+        FileExplorerFile__c penguinsFileAfter = [SELECT Id, Tags__c FROM FileExplorerFile__c WHERE Id = :penguinsFileBefore.Id];
+
+        System.assertEquals('tags;tag', penguinsFileAfter.Tags__c);
+
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_invalidInputs_on_updateTags_null() {
+        setupTestData();
+        Test.startTest();
+        String actual = qsydFileExplorerController.updateTags('ABCDE', 'tags;tag');
+        System.assertEquals(null, actual);
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_validInputs_andNoManualDeletion_on_checkSyncStatus() {
+        setupTestData();
+        Test.startTest();
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+        Boolean actual = qsydFileExplorerController.checkSyncStatus(a.Id);
+        System.assertEquals(true, actual);
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_validInputs_afterManualDeletion_on_checkSyncStatus_false() {
+        setupTestData();
+        Test.startTest();
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+        FileExplorerFile__c penguinsFile = [SELECT Id FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND Label__c = 'Penguins' LIMIT 1];
+        delete penguinsFile;
+        Boolean actual = qsydFileExplorerController.checkSyncStatus(a.Id);
+        System.assertEquals(false, actual);
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void given_validInputs_on_syncFiles_autoSyncMissingFEFile() {
+        setupTestData();
+        Test.startTest();
+
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+        List<ContentDocumentLink> cdlList = [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :a.Id AND ContentDocument.Title = 'Penguins'];
+        String contentDocumentId = cdlList[0].ContentDocumentId;
+
+        FileExplorerFile__c penguinsFile = [SELECT Id FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND Label__c = 'Penguins' LIMIT 1];
+        delete penguinsFile;
+
+        List<FileExplorerFile__c> beforeSyncFileList = [SELECT Id FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND Label__c = 'Penguins'];
+        System.assertEquals(0, beforeSyncFileList.size());
+
+        qsydFileExplorerController.syncFiles(a.Id);
+
+        List<FileExplorerFile__c> afterSyncFileList = [SELECT Id, ContentDocumentId__c, LinkedEntityId__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id AND Label__c = 'Penguins'];
+
+        System.assertEquals(1, afterSyncFileList.size());
+        System.assertEquals(a.Id, afterSyncFileList[0].LinkedEntityId__c);
+        System.assertEquals(contentDocumentId, afterSyncFileList[0].ContentDocumentId__c);
+
+        Test.stopTest();
+    }
+
+    @IsTest
+    private static void qsyd_FileInitialisationTest() {
+        qsyd_File file;
+
+        Test.startTest();
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'doc', '.doc', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('word.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'xls', '.xls', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('excel.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'ai', '.ai', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('illustrator.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'jpg', '.jpg', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('image.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'pdf', '.pdf', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('pdf.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'ps', '.ps', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('photoshop.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'ppt', '.ppt', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('ppt.png'));
+        file = new qsyd_File('a000a0000000000000', 'a000a0000000000001', 'label', 'a000a0000000000002', 'a000a0000000000004', 'other', '.other', 'owner', 'tags', 10, null);
+        System.assertEquals(true, file.icon.contains('doc.png'));
+        Test.stopTest();
+
+    }
+
+        @IsTest
+    private static void retrieveItemMapTest() {
+        setupTestData();
+
+        Test.startTest();
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+        Account a2 = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1]; 
+        String itemMapJSON = qsydFileExplorerController.retrieveItemMap(a.Id,'byDateDesc');
+        String itemMapJSON1 = qsydFileExplorerController.retrieveItemMap(a.Id,'byDateAsc');
+        String itemMapJSON2 = qsydFileExplorerController.retrieveItemMap(a.Id,'byNameDateDesc');
+        String itemMapJSON3 = qsydFileExplorerController.retrieveItemMap(a.Id,'byNameDateAsc');
+        Test.stopTest();
+
+        System.assertEquals(true, itemMapJSON.contains('qFolder'));
+    }
+
+    @IsTest
+    private static void postFolderItemTest() {
+
+        String json;
+
+        Test.startTest();
+
+        Account a = new Account(Name = 'Test');
+        INSERT a;
+
+        json = '{"documentId":"","entityId":"' + a.Id + '","text":"new_folder","folder":null,"icon":null,"id":null,"owner":null,"size":0,"tags":null,"type":null}';
+        String item = qsydFileExplorerController.postItem(json);
+
+        List<FileExplorerFolder__c> folders = [
+                SELECT Id,
+                        Label__c
+                FROM FileExplorerFolder__c
+                WHERE Label__c = 'new_folder'
+        ];
+        Test.stopTest();
+
+        System.assertEquals(1, folders.size());
+    }
+
+    @IsTest
+    private static void postFileItemTest() {
+        String json;
+
+        Test.startTest();
+
+        Account a = new Account(Name = 'Test');
+        INSERT a;
+
+        ContentVersion contentVersionInsert = new ContentVersion(
+                Title = 'Test',
+                PathOnClient = 'Test.jpg',
+                VersionData = Blob.valueOf('Test Content'),
+                IsMajorVersion = true
+        );
+        INSERT contentVersionInsert;
+
+        ContentDocument cd = [
+                SELECT Id
+                FROM ContentDocument
+                LIMIT 1
+        ];
+
+        json = '{"documentId":"' + cd.Id + '","entityId":"' + a.Id + '","text":"new_file","folder":null,"icon":null,"id":null,"owner":null,"size":0,"tags":null,"type":null}';
+        String item = qsydFileExplorerController.postItem(json);
+
+        List<FileExplorerFile__c> files = [
+                SELECT Id,
+                        Label__c
+                FROM FileExplorerFile__c
+                WHERE Label__c = 'new_file'
+        ];
+        Test.stopTest();
+
+        System.assertEquals(1, files.size());
+    }
+
+    @IsTest
+    private static void deleteItemTest() {
+
+        String json;
+
+        Test.startTest();
+
+        Account a = new Account(Name = 'Test');
+        INSERT a;
+
+        json = '{"documentId":"","entityId":"' + a.Id + '","text":"new_folder","folder":null,"icon":null,"id":null,"owner":null,"size":0,"tags":null,"type":null}';
+        String item = qsydFileExplorerController.postItem(json);
+        qsydFileExplorerController.deleteItem(item);
+
+        List<FileExplorerFolder__c> folders = [
+                SELECT Id,
+                        Label__c
+                FROM FileExplorerFolder__c
+                WHERE Label__c = 'new_folder'
+        ];
+        Test.stopTest();
+
+        System.assertEquals(0, folders.size());
+    }
+    
+    @IsTest
+    private static void deleteFilesTest() { 
+          
+        Test.startTest();
+        List<FileExplorerFile__c> lstFileExplorer = [SELECT ID FROM FileExplorerFile__c ];
+
+        Set<String> fileIDs = new Set<String>();
+
+        for(FileExplorerFile__c fl : lstFileExplorer){
+            fileIDs.add(fl.ID);
+        }
+
+        boolean result = qsydFileExplorerController.deleteFiles(new String[fileIDs]);
+         
+        Test.stopTest();
+
+        System.assert(result, 'Files is deleted');
+    }
+
+    @IsTest
+    private static void moveFilesTest() { 
+        
+        Test.startTest();
+
+        String folderName = 'qFolder2';
+        FileExplorerFolder__c folder = [SELECT Id, Label__c FROM FileExplorerFolder__c where Label__c =:folderName ];
+
+        List<FileExplorerFile__c> lstFileExplorer = [SELECT ID FROM FileExplorerFile__c ];
+
+        Set<String> fileIDs = new Set<String>();
+
+        for(FileExplorerFile__c fl : lstFileExplorer){
+            fileIDs.add(fl.ID);
+        }
+
+        String result = qsydFileExplorerController.moveItemFiles(new String[fileIDs], String.valueof(folder.ID));
+         
+        Test.stopTest();
+
+        System.assertEquals(result , 'Success' , 'Files is moved');
+    }
+
+
+    @IsTest
+    private static void given_comeParameters_when_aFolderConstructorIsCalledWithInvalidParameters_then_instanceParametersAreSet() {
+        qsyd_FolderTemplate template;
+
+        Test.startTest();
+
+        template = new qsyd_FolderTemplate('templateId', 'entityId', 'folderId');
+
+        Test.stopTest();
+
+        System.assertEquals(null, template.templateId);
+        System.assertEquals(null, template.entityId);
+        System.assertEquals(null, template.folderId);
+    }
+
+    @IsTest
+    private static void given_comeParameters_when_aFolderConstructorIsCalledWithValidParameters_then_instanceParametersAreSet() {
+        qsyd_FolderTemplate template;
+
+        Test.startTest();
+
+        template = new qsyd_FolderTemplate('a000a0000000000000', 'a000a0000000000001', 'a000a0000000000002');
+
+        Test.stopTest();
+
+        System.assertEquals('a000a0000000000000', template.templateId);
+        System.assertEquals('a000a0000000000001', template.entityId);
+        System.assertEquals('a000a0000000000002', template.folderId);
+    }
+
+    @IsTest
+    private static void given_someTemplateParameters_when_aListIsRequested_then_activeTemplatesAreReturned() {
+        qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates paginatedTemplates;
+        String filter = 'plate';
+        String sortBy = 'Label__c';
+        Integer pageSize = 2;
+        Integer pageOffset = 0;
+
+        // Setup
+        List<FileExplorerFolderTemplate__c> templates = new List<FileExplorerFolderTemplate__c>{
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 1', Description__c = 'Template 1 description', IsActive__c = TRUE),
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 2', Description__c = 'Template 2 description', IsActive__c = TRUE),
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 3', Description__c = 'Template 3 description', IsActive__c = TRUE),
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 4', Description__c = 'Template 4 description', IsActive__c = FALSE),
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 5', Description__c = 'Template 5 description', IsActive__c = TRUE),
+                new FileExplorerFolderTemplate__c(Label__c = 'Template 6', Description__c = 'Template 6 description', IsActive__c = TRUE)
+        };
+
+        INSERT templates;
+
+        Test.startTest();
+
+        paginatedTemplates = (qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates) JSON.deserialize(qsydFileExplorerController.getTemplates(filter, sortBy, pageSize, pageOffset), qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates.class);
+        paginatedTemplates = (qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates) JSON.deserialize(qsydFileExplorerController.getTemplates(filter, sortBy, pageSize, paginatedTemplates.pageOffset), qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates.class);
+        paginatedTemplates = (qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates) JSON.deserialize(qsydFileExplorerController.getTemplates(filter, sortBy, pageSize, paginatedTemplates.pageOffset), qsyd_FolderTemplate.qsyd_PaginatedFolderTemplates.class);
+
+        Test.stopTest();
+
+        System.assertEquals(-1, paginatedTemplates.pageOffset);
+        System.assertEquals(1, paginatedTemplates.records.size());
+    }
+
+    @IsTest
+    private static void given_aRecord_when_aTemplateIsProvided_then_aCloneOfThatTemplateIsMade() {
+
+        User sysAdminUser = [SELECT Id FROM User WHERE isActive  = TRUE LIMIT 1];
+
+        System.runAs(SysAdminUser){
+            String folderId = null;
+            List<FileExplorerFolder__c> folders;
+
+            // Setup
+            Account acme = new Account(Name = 'Acme');
+            INSERT acme;
+
+            FileExplorerFolderTemplate__c template = new FileExplorerFolderTemplate__c(Label__c = 'Template 1', Description__c = 'Template 1 description', IsActive__c = TRUE);
+            INSERT template;
+
+            FileExplorerFolder__c parentFolder = new FileExplorerFolder__c(LinkedEntityId__c = template.Id, Label__c = 'parent');
+            INSERT parentFolder;
+
+            FileExplorerFolder__c childFolder = new FileExplorerFolder__c(LinkedEntityId__c = template.Id, Label__c = 'child', Folder__c = parentFolder.Id);
+            INSERT childFolder;
+
+            Test.startTest();
+
+            qsydFileExplorerController.cloneTemplate(template.Id, acme.Id, folderId);
+
+            childFolder = [
+                    SELECT Id,
+                            Folder__c
+                    FROM FileExplorerFolder__c
+                    WHERE LinkedEntityId__c = :acme.Id
+                    AND Label__c = 'child'
+                    LIMIT 1
+            ][0];
+
+            parentFolder = [
+                    SELECT Label__c
+                    FROM FileExplorerFolder__c
+                    WHERE LinkedEntityId__c = :acme.Id
+                    AND Id = :childFolder.Folder__c
+                    LIMIT 1
+            ][0];
+
+            Test.stopTest();
+            System.assertEquals('parent', parentFolder.Label__c);
+        }
+    }
+
+    @IsTest
+    private static void updateFileName_TEST(){
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1];
+        FileExplorerFile__c fef = [SELECT Id, ContentDocumentId__c, LinkedEntityId__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id LIMIT 1];
+        qsydFileExplorerController.updateFileName(fef.Id, 'TestName');
+    }
+
+    @IsTest
+    private static void qsyd_FileList_TEST(){
+        List<qsyd_Item> items = new List<qsyd_Item>();
+        qsyd_FileList FL = new qsyd_FileList().load(items).convertToCanonical();
+        
+        Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1];
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
+        
+		FileExplorerFolder__c fd = new FileExplorerFolder__c(LinkedEntityId__c = a.Id, Label__c = 'qFolder4');    
+		Insert fd;
+         
+        //FileExplorerFile__c qFile = new FileExplorerFile__c(LinkedEntityId__c = acc.Id, Label__c = 'Penguins', Folder__c = fd.ID);
+        //INSERT qFile;
+        FileExplorerFile__c qFile1 = new FileExplorerFile__c(LinkedEntityId__c = acc.Id, Label__c = 'Penguins', Folder__c = fd.ID, Tags__c = 'Portail Partenaire');
+        INSERT qFile1;
+        
+        //delete fd;
+        	
+        FL.retrieve(acc.ID, 'byNameDateDesc');
+        FL.retrieve(acc.ID, 'byNameDateAsc');
+        FL.retrieve(acc.ID, 'byDateAsc');
+		        
+    }
+
+    @IsTest
+    private static void qsyd_FileList_getCanonical_TEST(){
+        Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1];
+        qsyd_FolderList folders = new qsyd_FolderList();
+        Map<String, List<qsyd_Item>> itemMap = new Map<String, List<qsyd_Item>>();
+        Map<String, List<FileExplorerFolder__c>> itemMap2 = new Map<String, List<FileExplorerFolder__c>>();
+
+        itemMap.put(qsyd_Folder.FOLDERS_KEY, folders.retrieve(acc.Id)
+                .convertToCanonical()
+                .getLogicalList());
+        //
+        List<FileExplorerFolder__c> lstFEF = folders.retrieve(acc.Id).getCanonicalList();
+
+    }
+
+
+    @isTest
+    public static void shareFileToPartner_Test(){
+        
+        List<String> lstProfil =  qsydFileExplorerController.getListPartnerProfil();
+         
+        System.assert(lstProfil.size() > 0, 'Profil exist');
+        
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1];
+        FileExplorerFile__c fef = [SELECT Id, ContentDocumentId__c, LinkedEntityId__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id LIMIT 1];
+        String profilPartner = null;
+        if(lstProfil.size() > 0){
+            profilPartner = String.join(lstProfil, ';'); 
+            String[] partner = profilPartner.split(',');
+            qsydFileExplorerController.shareFileToPartner(fef.Id, true, partner);
+            qsydFileExplorerController.isFileVisible(fef.Id);
+            qsydFileExplorerController.shareFileToPartner(fef.Id, false, partner);
+            Map<String,object> map_file_v = qsydFileExplorerController.isFileVisible(fef.Id); 
+            System.assert(map_file_v.size() > 0);
+         }
+
+         boolean resultIsCommunity = qsydFileExplorerController.isCommunity();
+
+         String resultCommunityPrefix = qsydFileExplorerController.getCommunityPrefix();
+
+        
+    }
+     
+    @isTest
+    public static void filterFileToPartner_Test(){
+        Account a = [SELECT Id FROM Account WHERE Name = 'TestAccount2' LIMIT 1];
+        FileExplorerFile__c fef = [SELECT Id, ContentDocumentId__c, LinkedEntityId__c FROM FileExplorerFile__c WHERE LinkedEntityId__c = :a.Id LIMIT 1]; 
+        qsydFileExplorerController.retrieveItemMapSharedFilter(fef.Id, 'byDateDesc'); 
+    }
+
+  
+
+}
