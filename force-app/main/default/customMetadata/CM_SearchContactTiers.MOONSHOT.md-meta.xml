@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>MOONSHOT - SOGECAP</label>
+    <protected>false</protected>
+    <values>
+        <field>Account__c</field>
+        <value xsi:type="xsd:string">Moonshot</value>
+    </values>
+    <values>
+        <field>EndpointToken__c</field>
+        <value xsi:type="xsd:string">https://customer-sys-api-dev-vvqepm.2ky31l-2.deu-c1.eu1.cloudhub.io</value>
+    </values>
+    <values>
+        <field>EndpointURL__c</field>
+        <value xsi:type="xsd:string">https://customer-sys-api-dev-vvqepm.2ky31l-2.deu-c1.eu1.cloudhub.io</value>
+    </values>
+    <values>
+        <field>OrganisationName__c</field>
+        <value xsi:type="xsd:string">001G500000Kk9fyIAB</value>
+    </values>
+    <values>
+        <field>Password__c</field>
+        <value xsi:type="xsd:string">77337028c7AE451aA15248a3505dC5fc</value>
+    </values>
+    <values>
+        <field>SearchByDateOfBirth__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>SearchByFirstName__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>SearchByLastName__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>SearchByPolicyNumber__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>UserName__c</field>
+        <value xsi:type="xsd:string">5707857dfa284605b0f6da557fd29f8e</value>
+    </values>
+    <values>
+        <field>X_AccessToken__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>
