@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>ACS AMI ASSURANCE</label>
+    <protected>false</protected>
+    <values>
+        <field>Account__c</field>
+        <value xsi:type="xsd:string">ACS</value>
+    </values>
+    <values>
+        <field>EndpointToken__c</field>
+        <value xsi:type="xsd:string">https://stargate.acs-ami.com/token</value>
+    </values>
+    <values>
+        <field>EndpointURL__c</field>
+        <value xsi:type="xsd:string">https://stargate.acs-ami.com/v1/acs-policy-vyv</value>
+    </values>
+    <values>
+        <field>OrganisationName__c</field>
+        <value xsi:type="xsd:string">001G500000Kk8nSIAR</value>
+    </values>
+    <values>
+        <field>Password__c</field>
+        <value xsi:type="xsd:string">BoRcPJH9</value>
+    </values>
+    <values>
+        <field>SearchByDateOfBirth__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>SearchByFirstName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>SearchByLastName__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>SearchByPolicyNumber__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>UserName__c</field>
+        <value xsi:type="xsd:string">vyv-ia</value>
+    </values>
+    <values>
+        <field>X_AccessToken__c</field>
+        <value xsi:type="xsd:string">bdSikMroTSTIA7xJLi1YADH2Esx1KL0L8KFpCyzP2roOCetOhwDhAEEmZhxGLOxm</value>
+    </values>
+</CustomMetadata>
