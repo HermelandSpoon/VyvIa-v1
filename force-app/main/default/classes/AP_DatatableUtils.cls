@@ -2,13 +2,13 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-06-2024
+ * @last modified on  : 06-14-2024
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class AP_DatatableUtils {
    
     static List<String> lstRecordType = new List<String>{'Remboursement' ,'Facture'};
-    static List<String> lstStatut = new List<String>{'Mise en paiement' ,'Echec Paiement'};
+    static List<String> lstetat = new List<String>{'Mise en paiement' ,'Echec Paiement'};
 
     @AuraEnabled
     public static List<facture_devis__c> getFinance(Integer countLimit, Integer offset, String searchValue, Map<String, List<String>> mapFilter, String dateFilter, Boolean visualisation, String recordId){
@@ -16,12 +16,12 @@ public with sharing class AP_DatatableUtils {
             //String query = 'SELECT Id, Name, Account.Name, Date_echeance__c, StageName, Probability, Amount FROM Opportunity WHERE Visualised__c = ' + visualisation + ' ';
             String query='';
             if(visualisation){
-                         query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,Statut__c,service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c from facture_devis__c where Lot_paiement__c = \''+recordId+ '\' ';
+                         query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,toLabel(etat__c),service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c,Contrevaleur_en_euros_validee_Ebury__c from facture_devis__c where Lot_paiement__c = \''+recordId+ '\' ';
             }
             else{
               
-                query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,Statut__c,service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c from facture_devis__c where Lot_paiement__c = null and (Statut__c =\'Mise en paiement\' or Statut__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
-                    //  query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,Statut__c,service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c from facture_devis__c where Lot_paiement__c = null and (Statut__c IN "'+String.join(lstStatut, '","')+') and (RecordType.DeveloperName IN "'+String.join(lstRecordType, '","')+') ';
+                query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,toLabel(etat__c),service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c, Contrevaleur_en_euros_validee_Ebury__c from facture_devis__c where Lot_paiement__c = null and (etat__c =\'Mise en paiement\' or etat__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
+                    //  query = 'select id, Name, service__r.CaseNumber, Date_reception_facture__c, Montant_pris_en_charge__c, devise_lookup__r.Code_ISO4217__c,Contrevaleur_montant_total_PEC_c__c,Emetteur_facture__r.Name,DestinatairePaiement__r.Name,Date_echeance__c,Date_de_mise_en_paiement__c,GrandCompte__c,Formule__r.Name,ModeleEconomique__c,etat__c,service__c,devise_lookup__c,Emetteur_facture__c,DestinatairePaiement__c,Formule__c from facture_devis__c where Lot_paiement__c = null and (etat__c IN "'+String.join(lstetat, '","')+') and (RecordType.DeveloperName IN "'+String.join(lstRecordType, '","')+') ';
                      
 
             }
@@ -57,7 +57,7 @@ public with sharing class AP_DatatableUtils {
                 query = 'select count(id) NumberRows from facture_devis__c where Lot_paiement__c = \''+recordId+ '\' ';
             }
             else{
-                query = 'select count(id) NumberRows from facture_devis__c where Lot_paiement__c = null and (Statut__c =\'Mise en paiement\' or Statut__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
+                query = 'select count(id) NumberRows from facture_devis__c where Lot_paiement__c = null and (etat__c =\'Mise en paiement\' or etat__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
 
             }
             query= buildQuery(mapFilter,searchValue, query,dateFilter);
@@ -89,10 +89,10 @@ public with sharing class AP_DatatableUtils {
         //try {
             String query='';
             if(visualisation){
-                query = 'SELECT devise_lookup__r.Code_ISO4217__c, Emetteur_facture__r.Name, RecordType.Name,ModeleEconomique__c, toLabel(Statut__c), Contrevaleur_montant_total_PEC_c__c,Contrevaleur_en_euros_validee_Ebury__c,GrandCompte__c FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
+                query = 'SELECT devise_lookup__r.Code_ISO4217__c, Emetteur_facture__r.Name, RecordType.Name,ModeleEconomique__c, toLabel(etat__c), Contrevaleur_montant_total_PEC_c__c,Contrevaleur_en_euros_validee_Ebury__c,GrandCompte__c FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
             }
             else {
-                query = 'SELECT devise_lookup__r.Code_ISO4217__c, Emetteur_facture__r.Name, RecordType.Name,ModeleEconomique__c, toLabel(Statut__c), Contrevaleur_montant_total_PEC_c__c ,Contrevaleur_en_euros_validee_Ebury__c,GrandCompte__c FROM facture_devis__c WHERE Lot_paiement__c = null and (Statut__c =\'Mise en paiement\' or Statut__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
+                query = 'SELECT devise_lookup__r.Code_ISO4217__c, Emetteur_facture__r.Name, RecordType.Name,ModeleEconomique__c, toLabel(etat__c), Contrevaleur_montant_total_PEC_c__c ,Contrevaleur_en_euros_validee_Ebury__c,GrandCompte__c FROM facture_devis__c WHERE Lot_paiement__c = null and (etat__c =\'Mise en paiement\' or etat__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
 
             }
             //system.debug(mapFilter);
@@ -127,13 +127,13 @@ public with sharing class AP_DatatableUtils {
                 Set<String> setTypeFinance = new Set<String>();
                 Set<String> setModeleEconomique = new Set<String>();
                 Set<String> setGrandCompte = new Set<String>();
-                Set<String> setStatut = new Set<String>();
+                Set<String> setetat = new Set<String>();
                 for (facture_devis__c  fin : lstFinance) {
                     if (fin.devise_lookup__r.Code_ISO4217__c != NULL) setDevise.add(fin.devise_lookup__r.Code_ISO4217__c);
                     if (fin.Emetteur_facture__r.Name != NULL) setPrestataire.add(fin.Emetteur_facture__r.Name);
                     if (fin.RecordType.Name != NULL) setTypeFinance.add(fin.RecordType.Name);
                     if (fin.ModeleEconomique__c != NULL) setModeleEconomique.add(fin.ModeleEconomique__c);
-                    if (fin.Statut__c != NULL) setStatut.add(fin.Statut__c);
+                    if (fin.etat__c != NULL) setetat.add(fin.etat__c);
                     if (fin.GrandCompte__c != NULL) setGrandCompte.add(fin.GrandCompte__c);
                     if (fin.Contrevaleur_montant_total_PEC_c__c != NULL) wrapper.totalAmount += fin.Contrevaleur_montant_total_PEC_c__c;
                     if (fin.Contrevaleur_en_euros_validee_Ebury__c != NULL) wrapper.totalValide += fin.Contrevaleur_en_euros_validee_Ebury__c;
@@ -142,7 +142,7 @@ public with sharing class AP_DatatableUtils {
                 wrapper.Prestataire = JSON.serialize(setPrestataire);
                 wrapper.TypeFinance = JSON.serialize(setTypeFinance);
                 wrapper.ModeleEconomique = JSON.serialize(setModeleEconomique);
-                wrapper.Statut = JSON.serialize(setStatut);
+                wrapper.etat = JSON.serialize(setetat);
                 wrapper.grandCompte = JSON.serialize(setGrandCompte);
             }
             return wrapper;
@@ -162,7 +162,7 @@ public with sharing class AP_DatatableUtils {
                 query = 'SELECT Id FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
             }
             else {
-                query = 'SELECT Id FROM facture_devis__c WHERE Lot_paiement__c = null and (Statut__c =\'Mise en paiement\' or Statut__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
+                query = 'SELECT Id FROM facture_devis__c WHERE Lot_paiement__c = null and (etat__c =\'Mise en paiement\' or etat__c =\'Echec Paiement\') and (RecordType.Name=\'Facture\' OR RecordType.Name =\'Remboursement\') ';
 
             }
             system.debug(mapFilter);
@@ -243,49 +243,51 @@ public with sharing class AP_DatatableUtils {
     @AuraEnabled
     public static void saveFinanceStatus(String recordId){
         //try {
-            String query = 'SELECT Id,RecordType.Name, toLabel(Statut__c),TECH_statusbar__c FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
+            //String query = 'SELECT Id,RecordType.Name, toLabel(etat__c),TECH_statusbar__c FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
+            String query = 'SELECT Id,RecordType.Name, toLabel(etat__c) FROM facture_devis__c WHERE Lot_paiement__c = \''+recordId+ '\' ';
+
             List<facture_devis__c> lstFinance = Database.query(query);
-            system.debug('techbar'+lstFinance);
+            // system.debug('techbar'+lstFinance);
             List<facture_devis__c> lstFin = new List<facture_devis__c>();
             if (!lstFinance.isEmpty()) {
                 for (facture_devis__c  fin : lstFinance) {
-                    String inputString = fin.TECH_statusbar__c;
-                    String[] outputArray = inputString.substring(1, inputString.length() - 1).split(',');
+                    // String inputString = fin.TECH_statusbar__c;
+                    // String[] outputArray = inputString.substring(1, inputString.length() - 1).split(',');
 
-                    // Trim each element in the array to remove extra spaces and quotes
-                    // for(Integer i = 0; i < outputArray.size(); i++) {
-                    //     outputArray[i] = outputArray[i].trim().replaceAll('"', '');
-                    // }
-                    if(fin.RecordType.Name =='Facture'){
-                        if(fin.Statut__c=='Mise en Paiement'){
-                            outputArray[5] = '"completed"';
-                            outputArray[6] = '"completed"';
-                        }
-                        if(fin.Statut__c=='Echec Paiement'){
-                            outputArray[5] = '"completed"';
-                            outputArray[6] = '"completed"';
-                            outputArray[7] = '"not yet"';
-                        }
+                    // // Trim each element in the array to remove extra spaces and quotes
+                    // // for(Integer i = 0; i < outputArray.size(); i++) {
+                    // //     outputArray[i] = outputArray[i].trim().replaceAll('"', '');
+                    // // }
+                    // if(fin.RecordType.Name =='Facture'){
+                    //     if(fin.etat__c=='Mise en Paiement'){
+                    //         outputArray[5] = '"completed"';
+                    //         outputArray[6] = '"completed"';
+                    //     }
+                    //     if(fin.etat__c=='Echec Paiement'){
+                    //         outputArray[5] = '"completed"';
+                    //         outputArray[6] = '"completed"';
+                    //         outputArray[7] = '"not yet"';
+                    //     }
 
-                    }else{
-                        if(fin.Statut__c=='Mise en Paiement'){
-                            outputArray[4] = '"completed"';
-                            outputArray[5] = '"completed"';
-                        }
-                        if(fin.Statut__c=='Echec Paiement'){
-                            outputArray[4] = '"completed"';
-                            outputArray[5] = '"completed"';
-                            outputArray[6] = '"not yet"';
-                        }
-                    }
-                    System.debug(outputArray);
-                    // String[] quotedArray = new List<String>();
-                    // for (String element : outputArray) {
-                    //     quotedArray.add('"' + element + '"');
+                    // }else{
+                    //     if(fin.etat__c=='Mise en Paiement'){
+                    //         outputArray[4] = '"completed"';
+                    //         outputArray[5] = '"completed"';
+                    //     }
+                    //     if(fin.etat__c=='Echec Paiement'){
+                    //         outputArray[4] = '"completed"';
+                    //         outputArray[5] = '"completed"';
+                    //         outputArray[6] = '"not yet"';
+                    //     }
                     // }
-                    String statusbar = '[' +String.join(outputArray, ',')+ ']';
-                    system.debug(statusbar);
-                    lstFin.add(new facture_devis__c(Id = fin.Id, Statut__c = 'Envoye Ebury', TECH_statusbar__c = statusbar));
+                    // System.debug(outputArray);
+                    // // String[] quotedArray = new List<String>();
+                    // // for (String element : outputArray) {
+                    // //     quotedArray.add('"' + element + '"');
+                    // // }
+                    // String statusbar = '[' +String.join(outputArray, ',')+ ']';
+                    // system.debug(statusbar);
+                    lstFin.add(new facture_devis__c(Id = fin.Id, etat__c = 'Envoye Ebury'));
                 }
                 update lstFin;
             }
@@ -307,7 +309,7 @@ public with sharing class AP_DatatableUtils {
         @AuraEnabled
         public String ModeleEconomique;
         @AuraEnabled
-        public String Statut;
+        public String etat;
         @AuraEnabled
         public Decimal totalAmount;
         @AuraEnabled
