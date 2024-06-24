@@ -34,7 +34,7 @@ export default class LwcDynamicDatatable extends LightningElement {
         "Grand compte",
         "Formule",
         "Prime ou Prestation",
-        "Statut de Finance"
+        "Etat de Finance"
     ];
 
     //tabs
@@ -71,7 +71,7 @@ export default class LwcDynamicDatatable extends LightningElement {
                     {developerName: 'Emetteur_facture__r.Name', wrapperName: 'Prestataire', displayName: 'Prestataire'},
                     {developerName: 'RecordType.Name', wrapperName: 'TypeFinance', displayName: 'Type de finance'},
                     {developerName: 'ModeleEconomique__c', wrapperName: 'ModeleEconomique', displayName: 'Prime ou Prestation'},
-                    {developerName: 'toLabel(Statut__c)', wrapperName: 'Statut', displayName: 'Statut de Finance'},
+                    {developerName: 'toLabel(etat__c)', wrapperName: 'etat', displayName: 'Etat de Finance'},
                     {developerName: 'GrandCompte__c', wrapperName: 'grandCompte', displayName: 'Grand Compte'}];
     
 
@@ -109,7 +109,7 @@ export default class LwcDynamicDatatable extends LightningElement {
        
         window.addEventListener('status', this.handleStatut)
         window.addEventListener('statusEnvoyer', this.handleStatutEnvoyer)
-        console.log('searching connectedcallback:',this.searching);
+        // console.log('searching connectedcallback:',this.searching);
     }
     
     handleDate(event) {
@@ -117,7 +117,7 @@ export default class LwcDynamicDatatable extends LightningElement {
     }
     handleChangeAC(e){
         const key = e.target.value;
-        console.log('key:',key);
+        // console.log('key:',key);
         this.inputValue = key;
 
         // CHECK IF THE USER IS SEARCHING
@@ -127,12 +127,12 @@ export default class LwcDynamicDatatable extends LightningElement {
             this.options = this.grandCompteLst;
             return;
         }
-        console.log('searching:',this.searching);
+        // console.log('searching:',this.searching);
 
         // FILTER VALUES
-        console.log('MKO grandCompteLst', this.grandCompteLst, this.testtemp)
+        //console.log('MKO grandCompteLst', this.grandCompteLst, this.testtemp)
         this.options = this.grandCompteLst.filter(element => element.label.toLowerCase().includes(key.toLowerCase()))
-        console.log('MKO grandCompteLst', this.grandCompteLst, this.options)
+        // console.log('MKO grandCompteLst', this.grandCompteLst, this.options)
 
     }
 
@@ -152,8 +152,10 @@ export default class LwcDynamicDatatable extends LightningElement {
     }
 
     handleStatut = (event) => {
+        console.log('handleStatut start')
+        console.log('handleStatut event: ', event)
         this.statutLDP = event.detail.value;
-       
+        console.log('this.statutLDP in handleStatut: ', this.statutLDP)
         if(this.statutLDP!= 'Qualification' && this.statutLDP!= 'Pret' && this.statutLDP!= 'Envoye Ebury'){
             this.showCol = true;
         }
@@ -161,13 +163,17 @@ export default class LwcDynamicDatatable extends LightningElement {
             this.hideBinSel = true;
             this.showVisualisation = true;
             this.showSelection = false;
+            console.log('handleStatut before handleReset: ', event)
             this.handleReset();
             this.searchInput = '';
             this.changeTab = true;
+            console.log('handleStatut before fetchGlobalDataset: ', event)
             this.fetchGlobalDataset();
             this.fetchFinances();
+            console.log('handleStatut after fetchFinances: ', event)
+
         }
-       
+        console.log('handleStatut end')
      }
      handleStatutEnvoyer = (event) => {
         this.statutLDP = event.detail.value;
@@ -223,13 +229,13 @@ export default class LwcDynamicDatatable extends LightningElement {
         //console.log('initialise filter',JSON.stringify(this.mapFilter))
     }
 
-    testtemp
+    //testtemp
 
     fetchGlobalDataset() {
         this.showSpinner=true;
        
         getGlobalDataset({searchValue : this.searchInput, mapFilter : this.mapFilter, dateFilter : this.currentDate, visualisation : this.showVisualisation, recordId :this.recordId}).then(result => {
-            console.log('MKO result', result, this.dropDownLists, this.changeTab)
+            // console.log('MKO result', result, this.dropDownLists, this.changeTab)
             if(this.dropDownLists==undefined || this.changeTab ){
                 this.changeTab=false;
                 this.dropDownLists = [];
@@ -267,8 +273,8 @@ export default class LwcDynamicDatatable extends LightningElement {
                     this.grandCompteLst.push(gcObject);
                 }
                 this.options = this.grandCompteLst;
-                this.testtemp= this.grandCompteLst;
-                console.log('MKO print var', JSON.stringify(this.grandCompteLst), JSON.stringify(this.options))
+                //this.testtemp= this.grandCompteLst;
+                // console.log('MKO print var', JSON.stringify(this.grandCompteLst), JSON.stringify(this.options))
 
             }
             
@@ -287,7 +293,7 @@ export default class LwcDynamicDatatable extends LightningElement {
             }
             // this.showSpinner = false;
         }).catch(error => {
-            console.log('Error => ' + JSON.stringify(error));
+            // console.log('Error => ' + JSON.stringify(error));
             this.showSpinner = false;
 
         });
@@ -316,10 +322,10 @@ export default class LwcDynamicDatatable extends LightningElement {
     }
 
     fetchFinances() {
-        console.log('fetch finance');
+        // console.log('fetch finance');
         getNumberFinances({searchValue : this.searchInput, mapFilter : this.mapFilter, dateFilter : this.currentDate, visualisation : this.showVisualisation, recordId :this.recordId}).then(result1 => {
             
-        console.log('fetch finance => getNumberFinances');
+        // console.log('fetch finance => getNumberFinances');
             this.showSpinner = true;
             this.numberOfRows = result1;
             if(this.showVisualisation){
@@ -540,14 +546,17 @@ export default class LwcDynamicDatatable extends LightningElement {
        this.inputValue='';
        this.grandCompteLst=[];
        console.log('data reset:',JSON.stringify(this.grandCompteLst))
-        Object.keys(this.dropDownLists).forEach(list => {
-          
-            if (this.dropDownLists[list].items != undefined) {
-                this.dropDownLists[list].items.forEach(item => {
-                    item.selected = false;
-                });
-            }
-        });
+       if(this.dropDownLists){
+           Object.keys(this.dropDownLists).forEach(list => {
+             
+               if (this.dropDownLists[list].items != undefined) {
+                   this.dropDownLists[list].items.forEach(item => {
+                       item.selected = false;
+                   });
+               }
+           });
+       }
+
         // this.dateList.forEach(item => {
         //     item.selected = false;
         // });

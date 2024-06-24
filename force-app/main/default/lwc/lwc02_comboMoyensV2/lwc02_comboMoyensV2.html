@@ -1,29 +1,38 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-13-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
+    <lightning-combobox id="garantie" name="Garantie" label="Garantie" options={garantieOptions}
+    onchange={handleGarantieChange} value={garantieValue} placeholder="Choisir Garantie"></lightning-combobox>
 
     <template lwc:if={isSousTypeDeFinanceFraisMedicaux}>
-        <lightning-combobox name="Garantie" label="Garantie" placeholder="Choisir Garantie" value={garantieValue}
-            options={garantieOptions} onchange={handleGarantieChange} disabled=true></lightning-combobox>
+        <!-- <lightning-combobox name="Garantie" label="Garantie" placeholder="Choisir Garantie" value={garantieValue}
+            options={garantieOptions} onchange={handleGarantieChange}></lightning-combobox> -->
 
         <template if:true={GarantieError}>
-            <span style="color:red">La garantie 'Frais médicaux hospitalier' n'est pas associée au service. Veuillez
+            <span style="color:red">La garantie 'Frais médicaux hospitalier' ou 'Frais médicaux non hospitalier' ne sont pas associées au service. Veuillez
                 vérifier vos informations et réessayer. </span>
         </template>
 
-        <lightning-combobox name="Moyen" label="Moyen/s" placeholder="Choisir Moyen" value={moyenValue}
+        <!-- <lightning-combobox name="Moyen" label="Moyen/s" placeholder="Choisir Moyen" value={moyenValue}
             options={moyenOptions} disabled=true></lightning-combobox>
         <template if:true={MoyenError}>
             <span style="color:red">Le moyen 'Prise en charge frais médicaux' n'est pas associé au service. Veuillez
                 vérifier vos informations et réessayer.</span>
-        </template>
+        </template> -->
     </template>
     <template lwc:else>
-        <lightning-combobox id="garantie" name="Garantie" label="Garantie" options={garantieOptions}
-            onchange={handleGarantieChange} value={garantieValue} placeholder="Choisir Garantie"></lightning-combobox>
+        <!-- <lightning-combobox id="garantie" name="Garantie" label="Garantie" options={garantieOptions}
+            onchange={handleGarantieChange} value={garantieValue} placeholder="Choisir Garantie"></lightning-combobox> -->
 
         <!-- <lightning-combobox name="Moyen" label="Moyen/s" placeholder="Choisir Moyen" value={moyenValue}
             options={moyenOptions} disabled=true></lightning-combobox> -->
 
-        <c-lwc05multiselect-combobox label="Moyen/s" placeholder="Choisir Moyen" onchange={handleMultiMoyenChange}
-            options={moyenOptions} value={listeDeMoyens}></c-lwc05multiselect-combobox>
+        <!-- <c-lwc05multiselect-combobox label="Moyen/s" placeholder="Choisir Moyen" onchange={handleMultiMoyenChange}
+            options={moyenOptions} value={listeDeMoyens}></c-lwc05multiselect-combobox> -->
     </template>
 </template>

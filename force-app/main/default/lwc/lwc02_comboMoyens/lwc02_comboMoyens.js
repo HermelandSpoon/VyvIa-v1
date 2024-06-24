@@ -9,6 +9,11 @@ export default class Lwc02_comboMoyens extends OmniscriptBaseMixin(LightningElem
 
   garantie // garantie to prefill
   statut
+  // sousType
+  recName
+  @api jsonData
+  hide =false;
+  @api isFactureAssis = false;
 
   garantieOptions
   mapGarantieToMoyens
@@ -22,12 +27,29 @@ export default class Lwc02_comboMoyens extends OmniscriptBaseMixin(LightningElem
   //   }
   // }
   connectedCallback() {
-    this.garantie = this.OmniJsonData?.GLOBAL?.garantie ?? null;
-    this.statut = this.OmniJsonData?.GLOBAL?.Statut ?? null;
+    //this.garantie = this.OmniJsonData?.GLOBAL?.garantie ?? null;
+    this.jsonData=this.omniJsonData;
+    console.log('JSON DATA:',JSON.stringify(this.jsonData));
+    //this.statut = this.omniJsonData?.GLOBAL?.Statut ?? null;
+    //this.sousType = this.jsonData?.Step1?.sousType ?? null;
+    this.recName = this.jsonData?.Step3?.recName ?? null;
+    this.garantie = this.omniJsonData?.Step3?.garantieId ?? null;
+    console.log('garantie:',this.garantie, 'recName:',this.recName);
+    if(this.garantie){
+      const garantieId = this.garantie
+      this.hide = true;
+      this.omniApplyCallResp({ "selectedGarantieId": garantieId })
+    }else{
+      if(this.recName=='Facture'){
+        this.isFactureAssis = true;
+      }
+    }
+    console.log('isFactureAssis',this.isFactureAssis);
+
   }
 
 
-  @wire(getGarantieMoyen, { factureId: '$contextId' })
+  @wire(getGarantieMoyen, { factureId: '$contextId', isFacture: '$isFactureAssis' })
   wiredGaranties({ error, data }) {
     if (data) {
       const result = JSON.parse(data)

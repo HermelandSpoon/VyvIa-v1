@@ -10,12 +10,16 @@ export default class Lwc06ModeleEconomique extends OmniscriptBaseMixin(Lightning
         const jsonData = this.omniJsonData
         const recordType = jsonData?.GLOBAL?.RecordType
 
-        if (recordType == "Remboursement") {
-            this.ligneFac = jsonData?.lignefacRBM;
-        } else if (recordType == "Facture") {
+        // if (recordType == "Remboursement") {
+        //     this.ligneFac = jsonData?.lignefacRBM;
+        // } else if (recordType == "Facture") {
+        //     this.ligneFac = jsonData?.lignefac;
+        // }
+        if (recordType == "Remboursement" || recordType=='Facture') {
             this.ligneFac = jsonData?.lignefac;
+            console.log('json data',jsonData);
+            console.log('ligne facturation:',this.ligneFac);
         }
-
         if (this.ligneFac && typeof this.ligneFac === 'object' && !Array.isArray(this.ligneFac)) {
             this.ligneFac = [this.ligneFac];
         }

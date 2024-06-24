@@ -27,6 +27,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Bon_a_payer_rapide__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Decision_medicale__c</picklist>
         <values>
             <fullName>Infirmier</fullName>
@@ -34,6 +45,28 @@
         </values>
         <values>
             <fullName>Medecin</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Demande_conforme__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Facture_conforme__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -153,6 +186,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Pret_pour_mise_en_paiement__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Remboursement_refacture__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sous_type__c</picklist>
         <values>
             <fullName>Assistance</fullName>
@@ -174,47 +229,19 @@
     <picklistValues>
         <picklist>Statut__c</picklist>
         <values>
-            <fullName>Analyse</fullName>
+            <fullName>Conformite</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Bon a payer</fullName>
+            <fullName>Controle</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Echec Paiement</fullName>
+            <fullName>Paiement_Facturation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>En attente demande de pieces</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Envoye Ebury</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Facture payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Facture refacturee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Facture rejetee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mise en paiement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Qualification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Validation DG</fullName>
+            <fullName>Traitement</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -248,6 +275,14 @@
     <picklistValues>
         <picklist>Type_de_devis__c</picklist>
         <values>
+            <fullName>Devis final</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Devis initial</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Running cost</fullName>
             <default>false</default>
         </values>
@@ -272,6 +307,110 @@
         </values>
         <values>
             <fullName>Rapatriement</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Urgence_finance__c</picklist>
+        <values>
+            <fullName>Non</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oui</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ValidationMedicale__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Validation_management__c</picklist>
+        <values>
+            <fullName>KO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OK</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>etat__c</picklist>
+        <values>
+            <fullName>Analyse</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Bon a payer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conforme</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Conforme et complet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Echec Paiement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>En attente validation admin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Envoye Ebury</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facture payee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facture refacturee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GOP Urgence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mise en paiement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non defini</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prise en charge refusee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prise en charge validee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rembourse</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case.Factures_Devis__r$Name</field>
+    </columns>
+    <columns>
+        <field>Case.Factures_Devis__r.Lignes_facturation__r$Name</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Case.Factures_Devis__r$Statut__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Paiement_Facturation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Factures_Devis__r$etat__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Echec Paiement</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Finances en échec de paiement</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Services_x_Finance_x_Lignes_de_facturation__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

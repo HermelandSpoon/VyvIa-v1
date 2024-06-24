@@ -1,37 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <actionCalls>
-        <name>Clone_ligne_facturation</name>
-        <label>Clone ligne facturation</label>
-        <locationX>2074</locationX>
-        <locationY>4232</locationY>
-        <actionName>AP02CloneLigneFacturation</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>Finance_record_id</targetReference>
-        </connector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>idDevisToClone</name>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>newDevis</name>
-            <value>
-                <elementReference>CreateDevisFacture.Id</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>AP02CloneLigneFacturation</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <assignments>
         <name>Assign_Folder_FI_ID</name>
         <label>Assign Folder FI ID</label>
         <locationX>842</locationX>
-        <locationY>4016</locationY>
+        <locationY>3908</locationY>
         <assignmentItems>
             <assignToReference>Folder_FI_ID</assignToReference>
             <operator>Assign</operator>
@@ -46,8 +20,8 @@
     <assignments>
         <name>Assign_Generated_File_Ids</name>
         <label>Assign Generated File Ids</label>
-        <locationX>2417</locationX>
-        <locationY>2936</locationY>
+        <locationX>2244</locationX>
+        <locationY>2828</locationY>
         <assignmentItems>
             <assignToReference>lstGeneratedFileIds</assignToReference>
             <operator>Assign</operator>
@@ -60,33 +34,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Assignment_14</name>
-        <label>Prestataire Finance Assignment</label>
-        <locationX>2778</locationX>
-        <locationY>3908</locationY>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Emetteur_facture__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.prestataire__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>FactureChamp</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Assignment_7</name>
         <label>Devis</label>
         <locationX>2206</locationX>
-        <locationY>3800</locationY>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Urgence__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Urgence</elementReference>
-            </value>
-        </assignmentItems>
+        <locationY>3692</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Type_de_devis__c</assignToReference>
             <operator>Assign</operator>
@@ -116,17 +67,10 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.moyen__c</assignToReference>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>pick_garantieMoyen.moyenId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Liste_de_moyens__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>pick_garantieMoyen.listeDeMoyens</elementReference>
+                <stringValue>Analyse</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -137,7 +81,7 @@
         <name>Copy_2_of_Selected_Finance_Record_Id</name>
         <label>selected facture id</label>
         <locationX>974</locationX>
-        <locationY>3476</locationY>
+        <locationY>3368</locationY>
         <assignmentItems>
             <assignToReference>financeRid</assignToReference>
             <operator>Assign</operator>
@@ -152,8 +96,8 @@
     <assignments>
         <name>countNumberOfDevis</name>
         <label>countNumberOfDevisfacture</label>
-        <locationX>2417</locationX>
-        <locationY>2720</locationY>
+        <locationX>2244</locationX>
+        <locationY>2612</locationY>
         <assignmentItems>
             <assignToReference>countDevi</assignToReference>
             <operator>AssignCount</operator>
@@ -176,7 +120,7 @@
         <name>createContentDocumentLink</name>
         <label>createContentDocumentLink</label>
         <locationX>1062</locationX>
-        <locationY>4316</locationY>
+        <locationY>4208</locationY>
         <assignmentItems>
             <assignToReference>ContentDocumentLink.LinkedEntityId</assignToReference>
             <operator>Assign</operator>
@@ -256,10 +200,26 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Devis_associe</name>
+        <label>Devis associe</label>
+        <locationX>2074</locationX>
+        <locationY>4016</locationY>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.Devis_associe__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>extDevis.firstSelectedRow.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_devis</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>FactureChamp</name>
         <label>Facture</label>
-        <locationX>3042</locationX>
-        <locationY>4100</locationY>
+        <locationX>2800</locationX>
+        <locationY>4034</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Type_de_facture__c</assignToReference>
             <operator>Assign</operator>
@@ -289,52 +249,10 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.Liste_de_moyens__c</assignToReference>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>pickgarantiemoyen.listeDeMoyens</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.moyen__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>pickgarantiemoyen.moyenId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.prestataire__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.prestataire__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.devise_lookup__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.devise_lookup__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Devise_remboursement__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.Devise_remboursement__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.date_d_entree__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.date_d_entree__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.date_de_sortie__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>extDevis.firstSelectedRow.date_de_sortie__c</elementReference>
+                <stringValue>Conformite</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -346,7 +264,7 @@
         <name>Finance_record_id</name>
         <label>Finance record id</label>
         <locationX>2206</locationX>
-        <locationY>4424</locationY>
+        <locationY>4316</locationY>
         <assignmentItems>
             <assignToReference>financeRid</assignToReference>
             <operator>Assign</operator>
@@ -362,8 +280,8 @@
     <assignments>
         <name>listDevisIds</name>
         <label>listDevisIds</label>
-        <locationX>2505</locationX>
-        <locationY>2444</locationY>
+        <locationX>2332</locationX>
+        <locationY>2336</locationY>
         <assignmentItems>
             <assignToReference>lstDevis</assignToReference>
             <operator>Add</operator>
@@ -378,8 +296,8 @@
     <assignments>
         <name>lstFacturedeis</name>
         <label>lstFacture</label>
-        <locationX>2769</locationX>
-        <locationY>2444</locationY>
+        <locationX>2596</locationX>
+        <locationY>2336</locationY>
         <assignmentItems>
             <assignToReference>lstFacture</assignToReference>
             <operator>Add</operator>
@@ -395,7 +313,7 @@
         <name>Pre_remplissage_champ</name>
         <label>Pre-remplissage champ</label>
         <locationX>2206</locationX>
-        <locationY>3908</locationY>
+        <locationY>3800</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.RecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -408,20 +326,6 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Email_Message_fields.Parent.personne__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Analyse</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.pays_d_arrivee__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Email_Message_fields.Parent.pays__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -453,49 +357,40 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.TECH_statusbar__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>statusbar</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>CreateDevisFacture.pathologie__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Email_Message_fields.Parent.pathologie__c</elementReference>
             </value>
         </assignmentItems>
-        <connector>
-            <targetReference>Create_devis</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Prestataire_Finance_Assignment</name>
-        <label>Prestataire Finance Assignment</label>
-        <locationX>3042</locationX>
-        <locationY>3908</locationY>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.Emetteur_facture__c</assignToReference>
+            <assignToReference>CreateDevisFacture.etat__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>extDevis.firstSelectedRow.prestataire_logistique__c</elementReference>
+                <stringValue>Analyse</stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>FactureChamp</targetReference>
+            <targetReference>Devis_rattacher_a_une_facture</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Rembourssement</name>
         <label>Rembourssement</label>
-        <locationX>3482</locationX>
-        <locationY>3476</locationY>
+        <locationX>3130</locationX>
+        <locationY>3368</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Name</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Nom_du_remboursement</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Conformite</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -507,7 +402,7 @@
         <name>Selected_Finance_Record_Id</name>
         <label>Selected Finance Record Id</label>
         <locationX>314</locationX>
-        <locationY>3476</locationY>
+        <locationY>3368</locationY>
         <assignmentItems>
             <assignToReference>financeRid</assignToReference>
             <operator>Assign</operator>
@@ -545,102 +440,9 @@
         </value>
     </choices>
     <decisions>
-        <name>assign_prestataire</name>
-        <label>Check Prestataire and Prestataire Logistique</label>
-        <locationX>3042</locationX>
-        <locationY>3800</locationY>
-        <defaultConnector>
-            <targetReference>FactureChamp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>only_Prestataire_not_null</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>extDevis.firstSelectedRow.prestataire__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>extDevis.firstSelectedRow.prestataire_logistique__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment_14</targetReference>
-            </connector>
-            <label>only Prestataire not null</label>
-        </rules>
-        <rules>
-            <name>only_Prestataire_logistique_not_null</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>extDevis.firstSelectedRow.prestataire__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>extDevis.firstSelectedRow.prestataire_logistique__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Prestataire_Finance_Assignment</targetReference>
-            </connector>
-            <label>only Prestataire logistique not null</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Clone_ligne_de_facturation</name>
-        <label>Clone ligne de facturation ?</label>
-        <locationX>2206</locationX>
-        <locationY>4124</locationY>
-        <defaultConnector>
-            <targetReference>Finance_record_id</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>NON</defaultConnectorLabel>
-        <rules>
-            <name>OUI_ligne</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Rattacher_devis</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Tyep_de_finance</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Facture</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>extDevis.firstSelectedRow.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Clone_ligne_facturation</targetReference>
-            </connector>
-            <label>OUI</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>ContentDocument_Exist</name>
         <label>ContentDocument Exist?</label>
-        <locationX>1145</locationX>
+        <locationX>1059</locationX>
         <locationY>674</locationY>
         <defaultConnector>
             <targetReference>Get_Attachment_Old_Finance_FileExplorer</targetReference>
@@ -665,7 +467,7 @@
     <decisions>
         <name>Continue</name>
         <label>Continue ?</label>
-        <locationX>881</locationX>
+        <locationX>795</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Get_Attachment_Old_Finance_ContentDocLink</targetReference>
@@ -687,10 +489,10 @@
     <decisions>
         <name>Copy_1_of_Garantie_and_Moyen_filled</name>
         <label>Garantie and Moyen filled?</label>
-        <locationX>2778</locationX>
+        <locationX>2646</locationX>
         <locationY>3692</locationY>
         <defaultConnector>
-            <targetReference>assign_prestataire</targetReference>
+            <targetReference>FactureChamp</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -714,7 +516,7 @@
         <name>create_document</name>
         <label>create document ?</label>
         <locationX>974</locationX>
-        <locationY>4508</locationY>
+        <locationY>4400</locationY>
         <defaultConnector>
             <targetReference>Redirect_to_record</targetReference>
         </defaultConnector>
@@ -739,7 +541,7 @@
         <name>Decision_14</name>
         <label>Garantie and Moyen filled?</label>
         <locationX>2008</locationX>
-        <locationY>3692</locationY>
+        <locationY>3584</locationY>
         <defaultConnector>
             <targetReference>Assignment_7</targetReference>
         </defaultConnector>
@@ -764,8 +566,8 @@
     <decisions>
         <name>Devi_rattacher</name>
         <label>Devi rattacher ?</label>
-        <locationX>1353</locationX>
-        <locationY>3368</locationY>
+        <locationX>1359</locationX>
+        <locationY>3260</locationY>
         <defaultConnector>
             <targetReference>Type_facture</targetReference>
         </defaultConnector>
@@ -823,10 +625,49 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Devis_rattacher_a_une_facture</name>
+        <label>Devis rattacher a une facture?</label>
+        <locationX>2206</locationX>
+        <locationY>3908</locationY>
+        <defaultConnector>
+            <targetReference>Create_devis</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>NON</defaultConnectorLabel>
+        <rules>
+            <name>OUI_ligne</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Rattacher_devis</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Tyep_de_finance</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Facture</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>extDevis.firstSelectedRow.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Devis_associe</targetReference>
+            </connector>
+            <label>OUI</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Folder_Exist</name>
         <label>Folder Exist ?</label>
         <locationX>974</locationX>
-        <locationY>3908</locationY>
+        <locationY>3800</locationY>
         <defaultConnector>
             <targetReference>Create_FolderFI</targetReference>
         </defaultConnector>
@@ -852,10 +693,35 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Garantie</name>
+        <label>Garantie ?</label>
+        <locationX>1147</locationX>
+        <locationY>1904</locationY>
+        <defaultConnector>
+            <targetReference>getListDevi</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>A des garenties</defaultConnectorLabel>
+        <rules>
+            <name>Pas_de_garentie</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>get_garantee</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_pas_de_moyen</targetReference>
+            </connector>
+            <label>Pas de garentie</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>get_all_devis</name>
         <label>get all devis</label>
-        <locationX>2769</locationX>
-        <locationY>2336</locationY>
+        <locationX>2596</locationX>
+        <locationY>2228</locationY>
         <defaultConnector>
             <targetReference>Loop_2</targetReference>
         </defaultConnector>
@@ -908,10 +774,10 @@
     <decisions>
         <name>Get_AttachmentOld_Finance_FileExplorer</name>
         <label>Get Attachment Old - Finance- FileExplorer</label>
-        <locationX>1145</locationX>
+        <locationX>1059</locationX>
         <locationY>1130</locationY>
         <defaultConnector>
-            <targetReference>Get_Moyen</targetReference>
+            <targetReference>get_garantee</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -933,10 +799,10 @@
     <decisions>
         <name>Lookup_finance_exist</name>
         <label>Lookup finance exist ?</label>
-        <locationX>1233</locationX>
+        <locationX>1147</locationX>
         <locationY>242</locationY>
         <defaultConnector>
-            <targetReference>Get_Moyen</targetReference>
+            <targetReference>get_garantee</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Does not exist</defaultConnectorLabel>
         <rules>
@@ -956,42 +822,35 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Moyen_ou_Garantie</name>
-        <label>Moyen ou Garantie ?</label>
-        <locationX>1233</locationX>
-        <locationY>2012</locationY>
+        <name>SousTypeFM</name>
+        <label>SousTypeFM?</label>
+        <locationX>2800</locationX>
+        <locationY>3584</locationY>
         <defaultConnector>
-            <targetReference>getListDevi</targetReference>
+            <targetReference>FactureChamp</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>A des moyen/garentie</defaultConnectorLabel>
+        <defaultConnectorLabel>Assis</defaultConnectorLabel>
         <rules>
-            <name>Pas_de_moyen_garentie</name>
-            <conditionLogic>or</conditionLogic>
+            <name>FM</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Moyen</leftValueReference>
-                <operator>IsNull</operator>
+                <leftValueReference>Sous_type_de_facture</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>get_garantee</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
+                    <stringValue>Frais Medicaux</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Error_pas_de_moyen</targetReference>
+                <targetReference>Copy_1_of_Garantie_and_Moyen_filled</targetReference>
             </connector>
-            <label>Pas de moyen/garentie</label>
+            <label>FM</label>
         </rules>
     </decisions>
     <decisions>
         <name>Type_facture</name>
         <label>Type facture ?</label>
-        <locationX>2393</locationX>
-        <locationY>3476</locationY>
+        <locationX>2404</locationX>
+        <locationY>3368</locationY>
         <defaultConnector>
             <targetReference>Create_Facture</targetReference>
         </defaultConnector>
@@ -1015,8 +874,8 @@
     <decisions>
         <name>Type_finance_remboussement</name>
         <label>Type finance = remboussement ?</label>
-        <locationX>2417</locationX>
-        <locationY>3260</locationY>
+        <locationX>2244</locationX>
+        <locationY>3152</locationY>
         <defaultConnector>
             <targetReference>Remboussement</targetReference>
         </defaultConnector>
@@ -1044,6 +903,7 @@
             <label>No</label>
         </rules>
     </decisions>
+    <description>Sprint 4 with rattacher a un devis depuis une facture</description>
     <dynamicChoiceSets>
         <name>soustype</name>
         <dataType>Picklist</dataType>
@@ -1084,6 +944,14 @@
         <picklistField>Type_de_facture__c</picklistField>
         <picklistObject>facture_devis__c</picklistObject>
     </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>UrgencePicklist</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Urgence_finance__c</picklistField>
+        <picklistObject>facture_devis__c</picklistObject>
+    </dynamicChoiceSets>
     <environments>Default</environments>
     <interviewLabel>Email-SCR-Qualification-Finance-DEMO {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Email-SCR-Qualification-Finance-DEMO</label>
@@ -1091,7 +959,7 @@
         <name>Add_Generated_Content_Document</name>
         <label>Add Generated Content Document</label>
         <locationX>974</locationX>
-        <locationY>4208</locationY>
+        <locationY>4100</locationY>
         <collectionReference>Get_Generated_Content_Documents</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1104,8 +972,8 @@
     <loops>
         <name>Loop_2</name>
         <label>Loop through list of devis/facture</label>
-        <locationX>2417</locationX>
-        <locationY>2228</locationY>
+        <locationX>2244</locationX>
+        <locationY>2120</locationY>
         <collectionReference>getListDevi</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1138,9 +1006,9 @@
         <name>Create_devis</name>
         <label>Create devis</label>
         <locationX>2206</locationX>
-        <locationY>4016</locationY>
+        <locationY>4208</locationY>
         <connector>
-            <targetReference>Clone_ligne_de_facturation</targetReference>
+            <targetReference>Finance_record_id</targetReference>
         </connector>
         <inputReference>CreateDevisFacture</inputReference>
     </recordCreates>
@@ -1148,7 +1016,7 @@
         <name>Create_FileExplorerFile</name>
         <label>Create FileExplorerFile FI</label>
         <locationX>578</locationX>
-        <locationY>4724</locationY>
+        <locationY>4616</locationY>
         <connector>
             <targetReference>Redirect_to_record</targetReference>
         </connector>
@@ -1161,7 +1029,7 @@
         <name>Create_FolderFI</name>
         <label>Create Folder FI</label>
         <locationX>1106</locationX>
-        <locationY>4016</locationY>
+        <locationY>3908</locationY>
         <assignRecordIdToReference>Folder_FI_ID</assignRecordIdToReference>
         <connector>
             <targetReference>Add_Generated_Content_Document</targetReference>
@@ -1184,7 +1052,7 @@
         <name>createContentDocumentLinks</name>
         <label>createContentDocumentLinks</label>
         <locationX>578</locationX>
-        <locationY>4616</locationY>
+        <locationY>4508</locationY>
         <connector>
             <targetReference>Create_FileExplorerFile</targetReference>
         </connector>
@@ -1197,7 +1065,7 @@
     <recordDeletes>
         <name>Remove_Attachment_Old_Finance_ContentDocLink</name>
         <label>Remove Attachment Old - Finance- ContentDocLink</label>
-        <locationX>881</locationX>
+        <locationX>795</locationX>
         <locationY>782</locationY>
         <connector>
             <targetReference>Get_Attachment_Old_Finance_FileExplorer</targetReference>
@@ -1219,10 +1087,10 @@
     <recordDeletes>
         <name>Remove_Attachment_Old_Finance_FE</name>
         <label>Remove Attachment Old - Finance -FE</label>
-        <locationX>881</locationX>
+        <locationX>795</locationX>
         <locationY>1238</locationY>
         <connector>
-            <targetReference>Get_Moyen</targetReference>
+            <targetReference>get_garantee</targetReference>
         </connector>
         <faultConnector>
             <targetReference>Roll_Back_For_Last_Deleted_File</targetReference>
@@ -1240,7 +1108,7 @@
     <recordLookups>
         <name>Get_Attachment_Old_Finance_ContentDocLink</name>
         <label>Get Attachment Old - Finance- ContentDocLink</label>
-        <locationX>1145</locationX>
+        <locationX>1059</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1261,7 +1129,7 @@
     <recordLookups>
         <name>Get_Attachment_Old_Finance_FileExplorer</name>
         <label>Get Attachment Old - Finance- FileExplorer</label>
-        <locationX>1145</locationX>
+        <locationX>1059</locationX>
         <locationY>1022</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1282,7 +1150,7 @@
     <recordLookups>
         <name>Get_Email_Message_fields</name>
         <label>Get Email Message fields</label>
-        <locationX>1233</locationX>
+        <locationX>1147</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1312,7 +1180,7 @@
         <name>get_existing_decument_in_finance</name>
         <label>get existing document in finance</label>
         <locationX>974</locationX>
-        <locationY>3692</locationY>
+        <locationY>3584</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Verify_FinanceRec_Folder_Existence</targetReference>
@@ -1332,11 +1200,11 @@
     <recordLookups>
         <name>get_garantee</name>
         <label>get garantee</label>
-        <locationX>1233</locationX>
-        <locationY>1904</locationY>
+        <locationX>1147</locationX>
+        <locationY>1796</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Moyen_ou_Garantie</targetReference>
+            <targetReference>Garantie</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1354,8 +1222,8 @@
     <recordLookups>
         <name>Get_Generated_Content_Documents</name>
         <label>Get Generated Content Documents</label>
-        <locationX>2417</locationX>
-        <locationY>3044</locationY>
+        <locationX>2244</locationX>
+        <locationY>2936</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>get_recordtype</targetReference>
@@ -1373,32 +1241,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Moyen</name>
-        <label>Get Moyen</label>
-        <locationX>1233</locationX>
-        <locationY>1796</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>get_garantee</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>service__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Email_Message_fields.ParentId</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>moyen_du_service__c</object>
-        <queriedFields>Id</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>get_recordtype</name>
         <label>get recordtype</label>
-        <locationX>2417</locationX>
-        <locationY>3152</locationY>
+        <locationX>2244</locationX>
+        <locationY>3044</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Type_finance_remboussement</targetReference>
@@ -1418,8 +1264,8 @@
     <recordLookups>
         <name>getListDevi</name>
         <label>getListDevi</label>
-        <locationX>2417</locationX>
-        <locationY>2120</locationY>
+        <locationX>2244</locationX>
+        <locationY>2012</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_2</targetReference>
@@ -1451,7 +1297,7 @@
         <name>Verify_FinanceRec_Folder_Existence</name>
         <label>Verify FinanceRec Folder Existence</label>
         <locationX>974</locationX>
-        <locationY>3800</locationY>
+        <locationY>3692</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Folder_Exist</targetReference>
@@ -1478,7 +1324,7 @@
     <recordRollbacks>
         <name>Roll_Back_For_Last_Deleted_File</name>
         <label>Roll Back For Last Deleted File</label>
-        <locationX>1145</locationX>
+        <locationX>1059</locationX>
         <locationY>1346</locationY>
         <connector>
             <isGoTo>true</isGoTo>
@@ -1489,7 +1335,7 @@
         <name>Update_Email_Message</name>
         <label>Update Email Message</label>
         <locationX>974</locationX>
-        <locationY>3584</locationY>
+        <locationY>3476</locationY>
         <connector>
             <targetReference>get_existing_decument_in_finance</targetReference>
         </connector>
@@ -1528,7 +1374,7 @@
     <screens>
         <name>Continue_or_not</name>
         <label>Continue or not</label>
-        <locationX>881</locationX>
+        <locationX>795</locationX>
         <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1609,14 +1455,14 @@
     <screens>
         <name>Create_Facture</name>
         <label>Prequalifiier un facture</label>
-        <locationX>2778</locationX>
-        <locationY>3584</locationY>
+        <locationX>2800</locationX>
+        <locationY>3476</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <backButtonLabel>Précédent</backButtonLabel>
         <connector>
-            <targetReference>Copy_1_of_Garantie_and_Moyen_filled</targetReference>
+            <targetReference>SousTypeFM</targetReference>
         </connector>
         <fields>
             <name>Create_Facture_Section1</name>
@@ -1723,6 +1569,16 @@
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Sous_type_de_facture</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Frais Medicaux</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -1743,14 +1599,14 @@
         <name>Error_pas_de_moyen</name>
         <label>Error pas de moyen</label>
         <locationX>50</locationX>
-        <locationY>2120</locationY>
+        <locationY>2012</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <backButtonLabel>Précédent</backButtonLabel>
         <fields>
             <name>pasdemoyentest</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;Vous ne disposez pas des moyens ou des garanties nécessaires pour créer une finance.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;Merci de le renseigner dès que possible sur le service suivant&amp;nbsp;: &lt;/strong&gt;&lt;a href=&quot;/{!Get_Email_Message_fields.ParentId}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;&lt;strong&gt;{!Get_Email_Message_fields.Parent.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(236, 236, 236); font-size: 18px; background-color: rgb(33, 33, 33);&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;Vous ne disposez pas des garanties nécessaires pour créer une finance.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;Merci de le renseigner dès que possible sur le service suivant&amp;nbsp;: &lt;/strong&gt;&lt;a href=&quot;/{!Get_Email_Message_fields.ParentId}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;&lt;strong&gt;{!Get_Email_Message_fields.Parent.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(33, 33, 33); font-size: 18px; color: rgb(236, 236, 236);&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Terminer</nextOrFinishButtonLabel>
@@ -1761,7 +1617,7 @@
         <name>Error_Screen</name>
         <label>Error Screen</label>
         <locationX>842</locationX>
-        <locationY>4832</locationY>
+        <locationY>4724</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1777,7 +1633,7 @@
         <name>Prequalifier_devi</name>
         <label>Pre-qualifier un devi</label>
         <locationX>2008</locationX>
-        <locationY>3584</locationY>
+        <locationY>3476</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1861,22 +1717,6 @@
             <fields>
                 <name>Prequalifier_devi_Section2_Column2</name>
                 <fieldType>Region</fieldType>
-                <fields>
-                    <name>blankspaces</name>
-                    <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <fields>
-                    <name>Urgence</name>
-                    <dataType>Boolean</dataType>
-                    <defaultValue>
-                        <booleanValue>false</booleanValue>
-                    </defaultValue>
-                    <fieldText>Urgence</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -1915,8 +1755,8 @@
     <screens>
         <name>Qualification_Email</name>
         <label>Qualification de l&apos;email</label>
-        <locationX>2417</locationX>
-        <locationY>2828</locationY>
+        <locationX>2244</locationX>
+        <locationY>2720</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2305,7 +2145,7 @@
         <name>Redirect_to_record</name>
         <label>Redirect to record</label>
         <locationX>974</locationX>
-        <locationY>5156</locationY>
+        <locationY>5048</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2338,8 +2178,8 @@
     <screens>
         <name>Remboussement</name>
         <label>Remboussement</label>
-        <locationX>3482</locationX>
-        <locationY>3368</locationY>
+        <locationX>3130</locationX>
+        <locationY>3260</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2393,7 +2233,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>1107</locationX>
+        <locationX>1021</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Email_Message_fields</targetReference>
