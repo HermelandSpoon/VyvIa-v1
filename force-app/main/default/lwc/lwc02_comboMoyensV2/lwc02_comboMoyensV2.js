@@ -12,7 +12,7 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
 
     // Options for garantie and moyen
     garantieOptions = [];
-    moyenOptions = [];
+    //moyenOptions = [];
 
     @api
     garantieValue;
@@ -20,14 +20,14 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
     moyenValue;
 
     // Mapping between garantie and moyens
-    mapGarantieToMoyens;
+    //mapGarantieToMoyens;
 
     // all garantie options (both frais medicaux and non frais medicaux)
     allGarantie;
 
     // IDs for frais medicaux garantie and moyen
-    fmGarantieId;
-    fmMoyenId;
+    fmGarantieIds=[];
+    //fmMoyenId;
 
     // Flag to indicate if data has been fetched
     dataFetched;
@@ -57,15 +57,16 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
 
     // Error checkers for garantie and moyen
     get GarantieError() {
-        return this.garantieId == '' || !this.garantieId
+        //return this.garantieId == '' || !this.garantieId
+        return (this.fmGarantieIds.length== 0);
     }
 
-    get MoyenError() {
-        if (this._sousTypeDeFinance == '' || this._sousTypeDeFinance == null) {
-            return true
-        }
-        return (this.isSousTypeDeFinanceFraisMedicaux && (this.moyenId == '' || this.moyenId == null)) || (!this.isSousTypeDeFinanceFraisMedicaux && (this.listeDeMoyens == '' || this.listeDeMoyens == null));
-    }
+    // get MoyenError() {
+    //     if (this._sousTypeDeFinance == '' || this._sousTypeDeFinance == null) {
+    //         return true
+    //     }
+    //     return (this.isSousTypeDeFinanceFraisMedicaux && (this.moyenId == '' || this.moyenId == null)) || (!this.isSousTypeDeFinanceFraisMedicaux && (this.listeDeMoyens == '' || this.listeDeMoyens == null));
+    // }
 
     connectedCallback() {
         this.getFraisMedicauxGarantieMoyen()
@@ -76,7 +77,8 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
         getGarantieMoyenFromCase({caseId: this.caseId}).then((data)=>{
             const result = JSON.parse(data);
             this.allGarantie = result.options;
-            this.mapGarantieToMoyens = result.mapGarantieToMoyenDuServiceOptions;
+            console.log('all garantie:',this.allGarantie);
+            //this.mapGarantieToMoyens = result.mapGarantieToMoyenDuServiceOptions;
 
             // Set a property to indicate that the data has been fetched
             this.dataFetched = true;
@@ -110,69 +112,73 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
     // Reset all options and values
     resetOptions() {
         this.garantieOptions = [];
-        this.moyenOptions = [];
+        //this.moyenOptions = [];
         this.garantieId = null;
-        this.moyenId = null;
-        this.listeDeMoyens = null;
-        this.moyenValue = null;
+        //this.moyenId = null;
+        //this.listeDeMoyens = null;
+        //this.moyenValue = null;
 
         // Clear all comboboxes
-        this.template.querySelectorAll('lightning-combobox').forEach(each => {
-            each.value = null;
-        });
+        // this.template.querySelectorAll('lightning-combobox').forEach(each => {
+        //     each.value = null;
+        // });
 
         // Dispatch events to update flow attributes
         this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
-        this.dispatchEventFlowAttributeChangeEvent('moyenId', this.moyenId);
-        this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
+        //this.dispatchEventFlowAttributeChangeEvent('moyenId', this.moyenId);
+        //this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
     }
 
     // Handle 'Frais Medicaux' sousTypeDeFinance
     handleFraisMedicaux() {
         if (!this.allGarantie) return;
-        if (!this.fmGarantieId) return;
-        let garantie = this.allGarantie.find(obj => obj.value === this.fmGarantieId);
-        if (garantie) {
-            this.garantieOptions = [garantie];
-            this.garantieValue = garantie.value;
-            this.garantieId = garantie.value;
+        if (!this.fmGarantieIds) return;
+        //let garantie = this.allGarantie.find(obj => obj.value === this.fmGarantieIds);
+        this.garantieOptions = this.allGarantie.filter(garantie => this.fmGarantieIds.includes(garantie.value));
+        console.log('options fm',this.garantieOptions);
+        //if (garantie) {
+        //if (this.garantieOptions) {
+            //this.garantieOptions = [garantie];
+            //this.garantieValue = garantie.value;
+            //this.garantieId = garantieValue;
 
-            if (!this.fmMoyenId) return;
-            let moyen = this.mapGarantieToMoyens[this.fmGarantieId].find(obj => obj.value === this.fmMoyenId);
-            if (moyen) {
-                this.moyenOptions = [moyen];
-                this.moyenValue = moyen.value;
+            //if (!this.fmMoyenId) return;
+            //let moyen = this.mapGarantieToMoyens[this.fmGarantieId].find(obj => obj.value === this.fmMoyenId);
+            // if (moyen) {
+            //     this.moyenOptions = [moyen];
+            //     this.moyenValue = moyen.value;
 
-                this.garantieId = garantie.value;
-                this.moyenId = moyen.value;
-                this.listeDeMoyens = moyen.label;
+            //     this.garantieId = garantie.value;
+            //     this.moyenId = moyen.value;
+            //     this.listeDeMoyens = moyen.label;
 
-                this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
-                this.dispatchEventFlowAttributeChangeEvent('moyenId', this.moyenId);
-                this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
-            }
-        } else {
-            this.resetOptions();
-        }
+            //this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
+            //     this.dispatchEventFlowAttributeChangeEvent('moyenId', this.moyenId);
+            //     this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
+            // }
+        //} else {
+        //   this.resetOptions();
+        //}
     }
 
     // Handle non-'Frais Medicaux' sousTypeDeFinance
     handleNonFraisMedicaux() {
         if (!this.allGarantie) return;
-        this.garantieOptions = this.allGarantie.filter(garantie => garantie.value !== this.fmGarantieId);
-
-        if (this.garantieValue && this.garantieValue != this.fmGarantieId) {
+        //this.garantieOptions = this.allGarantie.filter(garantie => garantie.value !== this.fmGarantieId);
+        this.garantieOptions = this.allGarantie.filter(garantie => !this.fmGarantieIds.includes(garantie.value));
+        console.log('options',this.garantieOptions);
+        if (this.garantieValue && !this.fmGarantieIds.includes(this.garantieValue)) {
             this.garantieId = this.garantieValue
 
-            const moyensOptions = this.mapGarantieToMoyens[this.garantieId];
-            this.moyenOptions = moyensOptions;
+            // const moyensOptions = this.mapGarantieToMoyens[this.garantieId];
+            // this.moyenOptions = moyensOptions;
             // this.moyenOptions = [{ value: this.listeDeMoyens, label: this.listeDeMoyens }]
 
             // Prefilling part
-            this.moyenValue = this.listeDeMoyens
+            //this.moyenValue = this.listeDeMoyens
 
             this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
-            this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
+            //this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
         }
     }
 
@@ -184,8 +190,16 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
 
     getFraisMedicauxGarantieMoyen(){
         getFraisMedicauxGarantieMoyen({caseId: this.caseId}).then(((data)=>{
-            this.fmGarantieId = data.garantieId;
-            this.fmMoyenId = data.moyenId;
+            console.log('data',data);
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                  console.log('hi');
+                  this.fmGarantieIds.push(data[key]);
+                }
+              }
+            //this.fmGarantieId = data.garantieId;
+            console.log('test:',this.fmGarantieIds);
+            //this.fmMoyenId = data.moyenId;
         })).catch((error)=>{
             console.error('Error in retrieving garanties: ', error);
         })
@@ -194,16 +208,16 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
     // Handle change in garantie
     handleGarantieChange(event) {
         const garantieId = event.detail.value;
-        const moyensOptions = this.mapGarantieToMoyens[garantieId];
+        //const moyensOptions = this.mapGarantieToMoyens[garantieId];
 
         this.garantieId = garantieId;
-        this.moyenId = null;
-        this.listeDeMoyens = null
+        //this.moyenId = null;
+        //this.listeDeMoyens = null
 
         this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
 
-        if (!this.isSousTypeDeFinanceFraisMedicaux) {
-            this.moyenOptions = moyensOptions.filter(moyen => moyen.value !== this.fmMoyenId);
+        //if (!this.isSousTypeDeFinanceFraisMedicaux) {
+            //this.moyenOptions = moyensOptions.filter(moyen => moyen.value !== this.fmMoyenId);
 
             // let resultingString = this.moyenOptions.map(option => option.label).join(', ');
 
@@ -212,15 +226,15 @@ export default class Lwc02_comboMoyensV2 extends OmniscriptBaseMixin(LightningEl
 
             // this.listeDeMoyens = resultingString
 
-            this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
+            //this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
 
-        }
+        //}
     }
 
-    handleMultiMoyenChange(event) {
-        const listeDeMoyens = event.detail.value;
-        this.listeDeMoyens = listeDeMoyens;
-        this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
-        this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
-    }
+    //handleMultiMoyenChange(event) {
+        //const listeDeMoyens = event.detail.value;
+        //this.listeDeMoyens = listeDeMoyens;
+        //this.dispatchEventFlowAttributeChangeEvent('garantieId', this.garantieId);
+        //this.dispatchEventFlowAttributeChangeEvent('listeDeMoyens', this.listeDeMoyens);
+    //}
 }
