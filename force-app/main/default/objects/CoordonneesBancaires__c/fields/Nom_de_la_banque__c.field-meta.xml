@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>SWIFT__c</fullName>
+    <fullName>Nom_de_la_banque__c</fullName>
     <externalId>false</externalId>
-    <label>SWIFT / BIC</label>
+    <inlineHelpText>Bank name Ebury</inlineHelpText>
+    <label>Nom de la banque</label>
     <length>255</length>
     <required>true</required>
     <trackHistory>false</trackHistory>

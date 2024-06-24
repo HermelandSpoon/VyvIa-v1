@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type_de_devis__c</fullName>
-    <externalId>false</externalId>
     <label>Type de devis</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -13,6 +12,16 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Devis final</fullName>
+                <default>false</default>
+                <label>Devis final</label>
+            </value>
+            <value>
+                <fullName>Devis initial</fullName>
+                <default>false</default>
+                <label>Devis initial</label>
+            </value>
+            <value>
                 <fullName>Running cost</fullName>
                 <default>false</default>
                 <label>Running cost</label>
@@ -20,13 +29,8 @@
             <value>
                 <fullName>Devis</fullName>
                 <default>false</default>
-                <label>Devis</label>
-            </value>
-            <value>
-                <fullName>Devis initial</fullName>
-                <default>false</default>
                 <isActive>false</isActive>
-                <label>Devis initial</label>
+                <label>Devis</label>
             </value>
         </valueSetDefinition>
     </valueSet>
