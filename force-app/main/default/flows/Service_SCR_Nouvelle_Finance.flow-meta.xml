@@ -5,14 +5,7 @@
         <name>Assignment_7</name>
         <label>Devis</label>
         <locationX>578</locationX>
-        <locationY>1214</locationY>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Urgence__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Urgence</elementReference>
-            </value>
-        </assignmentItems>
+        <locationY>1106</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Type_de_devis__c</assignToReference>
             <operator>Assign</operator>
@@ -42,17 +35,24 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.Liste_de_moyens__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>pick_garantieMoyen.listeDeMoyens</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>CreateDevisFacture.Date_reception_facture__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Date_de_reception_devis</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.pathologie__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Service_fields.pathologie__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Analyse</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -62,8 +62,8 @@
     <assignments>
         <name>FactureChamp</name>
         <label>Facture</label>
-        <locationX>1106</locationX>
-        <locationY>1214</locationY>
+        <locationX>1128</locationX>
+        <locationY>1448</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Type_de_facture__c</assignToReference>
             <operator>Assign</operator>
@@ -93,17 +93,24 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.Liste_de_moyens__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>pickgarantiemoyen.listeDeMoyens</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>CreateDevisFacture.Date_reception_facture__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Date_de_reception_fac</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.pathologie__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Service_fields.pathologie__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Conformite</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -114,8 +121,8 @@
     <assignments>
         <name>Finance_record_id</name>
         <label>Finance record id</label>
-        <locationX>1040</locationX>
-        <locationY>1856</locationY>
+        <locationX>1122</locationX>
+        <locationY>2006</locationY>
         <assignmentItems>
             <assignToReference>financeRid</assignToReference>
             <operator>Assign</operator>
@@ -130,8 +137,8 @@
     <assignments>
         <name>Pre_remplissage_champ</name>
         <label>Pre-remplissage champ</label>
-        <locationX>1040</locationX>
-        <locationY>1640</locationY>
+        <locationX>1122</locationX>
+        <locationY>1790</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.RecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -144,20 +151,6 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Service_fields.personne__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Analyse</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.pays_d_arrivee__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Service_fields.pays__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -182,17 +175,10 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>CreateDevisFacture.TECH_statusbar__c</assignToReference>
+            <assignToReference>CreateDevisFacture.etat__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>statusbar</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>CreateDevisFacture.pathologie__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Service_fields.pathologie__c</elementReference>
+                <stringValue>Analyse</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -202,8 +188,8 @@
     <assignments>
         <name>Rembourssement</name>
         <label>Rembourssement</label>
-        <locationX>1370</locationX>
-        <locationY>998</locationY>
+        <locationX>1458</locationX>
+        <locationY>890</locationY>
         <assignmentItems>
             <assignToReference>CreateDevisFacture.Name</assignToReference>
             <operator>Assign</operator>
@@ -216,6 +202,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Date_de_reception_rem</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreateDevisFacture.Statut__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Conformite</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -276,7 +269,7 @@
         <name>Decision_14</name>
         <label>Garantie and Moyen filled?</label>
         <locationX>446</locationX>
-        <locationY>1106</locationY>
+        <locationY>998</locationY>
         <defaultConnector>
             <targetReference>Assignment_7</targetReference>
         </defaultConnector>
@@ -299,24 +292,17 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Moyen_ou_Garantie</name>
-        <label>Moyen ou Garantie ?</label>
-        <locationX>545</locationX>
-        <locationY>458</locationY>
+        <name>Garantie</name>
+        <label>Garantie?</label>
+        <locationX>586</locationX>
+        <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Qualification_Email</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>A des moyen/garentie</defaultConnectorLabel>
+        <defaultConnectorLabel>A des garentie</defaultConnectorLabel>
         <rules>
-            <name>Pas_de_moyen_garentie</name>
+            <name>Pas_garentie</name>
             <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Moyen</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <conditions>
                 <leftValueReference>get_garantee</leftValueReference>
                 <operator>IsNull</operator>
@@ -325,16 +311,41 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Error_pas_de_moyen</targetReference>
+                <targetReference>Error_pas_de_garantie</targetReference>
             </connector>
-            <label>Pas de moyen/garentie</label>
+            <label>Pas de garentie</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>SousTypeFM</name>
+        <label>SousTypeFM?</label>
+        <locationX>1128</locationX>
+        <locationY>998</locationY>
+        <defaultConnector>
+            <targetReference>FactureChamp</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Assis</defaultConnectorLabel>
+        <rules>
+            <name>FM</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Sous_type_de_facture</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Frais Medicaux</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_1_of_Garantie_and_Moyen_filled</targetReference>
+            </connector>
+            <label>FM</label>
         </rules>
     </decisions>
     <decisions>
         <name>Type_facture</name>
         <label>Type facture ?</label>
-        <locationX>710</locationX>
-        <locationY>890</locationY>
+        <locationX>787</locationX>
+        <locationY>782</locationY>
         <defaultConnector>
             <targetReference>Create_Facture</targetReference>
         </defaultConnector>
@@ -358,8 +369,8 @@
     <decisions>
         <name>Type_finance_remboussement</name>
         <label>Type finance = remboussement ?</label>
-        <locationX>1040</locationX>
-        <locationY>782</locationY>
+        <locationX>1122</locationX>
+        <locationY>674</locationY>
         <defaultConnector>
             <targetReference>Remboussement</targetReference>
         </defaultConnector>
@@ -387,6 +398,7 @@
             <label>No</label>
         </rules>
     </decisions>
+    <description>Sprint 4</description>
     <dynamicChoiceSets>
         <name>soustype</name>
         <dataType>Picklist</dataType>
@@ -427,6 +439,14 @@
         <picklistField>Type_de_facture__c</picklistField>
         <picklistObject>facture_devis__c</picklistObject>
     </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>UrgencePicklist</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Urgence_finance__c</picklistField>
+        <picklistObject>facture_devis__c</picklistObject>
+    </dynamicChoiceSets>
     <environments>Default</environments>
     <interviewLabel>Service {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Service-SCR-Nouvelle-Finance</label>
@@ -452,8 +472,8 @@
     <recordCreates>
         <name>Create_devis</name>
         <label>Create devis</label>
-        <locationX>1040</locationX>
-        <locationY>1748</locationY>
+        <locationX>1122</locationX>
+        <locationY>1898</locationY>
         <connector>
             <targetReference>Finance_record_id</targetReference>
         </connector>
@@ -462,11 +482,11 @@
     <recordLookups>
         <name>get_garantee</name>
         <label>get garantee</label>
-        <locationX>545</locationX>
-        <locationY>350</locationY>
+        <locationX>586</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Moyen_ou_Garantie</targetReference>
+            <targetReference>Garantie</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -482,32 +502,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Moyen</name>
-        <label>Get Moyen</label>
-        <locationX>545</locationX>
-        <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>get_garantee</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>service__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Service_fields.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>moyen_du_service__c</object>
-        <queriedFields>Id</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>get_recordtype</name>
         <label>get recordtype</label>
-        <locationX>1040</locationX>
-        <locationY>674</locationY>
+        <locationX>1122</locationX>
+        <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Type_finance_remboussement</targetReference>
@@ -527,11 +525,11 @@
     <recordLookups>
         <name>Get_Service_fields</name>
         <label>Get Service fields</label>
-        <locationX>545</locationX>
+        <locationX>586</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Moyen</targetReference>
+            <targetReference>get_garantee</targetReference>
         </connector>
         <faultConnector>
             <targetReference>Error_Screen</targetReference>
@@ -551,14 +549,14 @@
     <screens>
         <name>Create_Facture</name>
         <label>Prequalifiier un facture</label>
-        <locationX>974</locationX>
-        <locationY>998</locationY>
+        <locationX>1128</locationX>
+        <locationY>890</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <backButtonLabel>Précédent</backButtonLabel>
         <connector>
-            <targetReference>Copy_1_of_Garantie_and_Moyen_filled</targetReference>
+            <targetReference>SousTypeFM</targetReference>
         </connector>
         <fields>
             <name>Create_Facture_Section1</name>
@@ -669,23 +667,33 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Sous_type_de_facture</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Frais Medicaux</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <nextOrFinishButtonLabel>Suivant</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Error_pas_de_moyen</name>
-        <label>Error pas de moyen</label>
+        <name>Error_pas_de_garantie</name>
+        <label>Error pas de garantie</label>
         <locationX>50</locationX>
-        <locationY>566</locationY>
+        <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <backButtonLabel>Précédent</backButtonLabel>
         <fields>
             <name>pasdemoyentest</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;Vous ne disposez pas des moyens ou des garanties nécessaires pour créer une finance.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;Merci de le renseigner dès que possible sur le service suivant&amp;nbsp;: &lt;/strong&gt;&lt;a href=&quot;/{!Get_Service_fields.ParentId}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;&lt;strong&gt;{!Get_Service_fields.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(33, 33, 33); font-size: 18px; color: rgb(236, 236, 236);&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;Vous ne disposez pas des garanties nécessaires pour créer une finance.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;Merci de le renseigner dès que possible sur le service suivant&amp;nbsp;: &lt;/strong&gt;&lt;a href=&quot;/{!Get_Service_fields.ParentId}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 18px; font-family: sans-serif;&quot;&gt;&lt;strong&gt;{!Get_Service_fields.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(236, 236, 236); font-size: 18px; background-color: rgb(33, 33, 33);&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Terminer</nextOrFinishButtonLabel>
@@ -695,7 +703,7 @@
     <screens>
         <name>Error_Screen</name>
         <label>Error Screen</label>
-        <locationX>1634</locationX>
+        <locationX>1722</locationX>
         <locationY>242</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -712,7 +720,7 @@
         <name>Prequalifier_devi</name>
         <label>Pre-qualifier un devi</label>
         <locationX>446</locationX>
-        <locationY>998</locationY>
+        <locationY>890</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -785,17 +793,6 @@
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
-                <fields>
-                    <name>Urgence</name>
-                    <dataType>Boolean</dataType>
-                    <defaultValue>
-                        <booleanValue>false</booleanValue>
-                    </defaultValue>
-                    <fieldText>Urgence</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -853,8 +850,8 @@
     <screens>
         <name>Qualification_Email</name>
         <label>Qualification de l&apos;email</label>
-        <locationX>1040</locationX>
-        <locationY>566</locationY>
+        <locationX>1122</locationX>
+        <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -937,8 +934,8 @@
     <screens>
         <name>Redirect_to_record</name>
         <label>Redirect to record</label>
-        <locationX>1040</locationX>
-        <locationY>1964</locationY>
+        <locationX>1122</locationX>
+        <locationY>2114</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -971,8 +968,8 @@
     <screens>
         <name>Remboussement</name>
         <label>Remboussement</label>
-        <locationX>1370</locationX>
-        <locationY>890</locationY>
+        <locationX>1458</locationX>
+        <locationY>782</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1034,7 +1031,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>419</locationX>
+        <locationX>460</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Service_fields</targetReference>
