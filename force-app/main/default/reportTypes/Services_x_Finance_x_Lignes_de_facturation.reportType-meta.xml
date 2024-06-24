@@ -446,6 +446,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>service__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>pays__c</field>
             <table>Case</table>
         </columns>
@@ -759,6 +764,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Notes_internes_conformite__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>imagerie__c</field>
             <table>Case.Factures_Devis__r</table>
         </columns>
@@ -834,6 +844,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>etat__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>type_de_facturation__c</field>
             <table>Case.Factures_Devis__r</table>
         </columns>
@@ -845,6 +860,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Nom_recherche_texte__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Devis_associe__c</field>
             <table>Case.Factures_Devis__r</table>
         </columns>
         <columns>
@@ -865,6 +885,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Grand_compte_bis__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Facture_conforme__c</field>
             <table>Case.Factures_Devis__r</table>
         </columns>
         <columns>
@@ -1290,6 +1315,31 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Autre_justificatif__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Valide_management__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Demande_conforme__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Urgence_finance__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Pret_pour_mise_en_paiement__c</field>
+            <table>Case.Factures_Devis__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Remboursement_refacture__c</field>
             <table>Case.Factures_Devis__r</table>
         </columns>
         <masterLabel>Finances</masterLabel>

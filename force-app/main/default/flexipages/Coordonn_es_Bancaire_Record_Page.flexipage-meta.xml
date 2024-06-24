@@ -38,6 +38,26 @@
                 <identifier>RecordPersonne_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Principal__c</fieldItem>
+                <identifier>RecordPrincipal_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Id_Ebury__c</fieldItem>
+                <identifier>RecordId_Ebury__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-01242868-c9c2-4955-becd-45f23d834136</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -50,6 +70,26 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Prestataire__c</fieldItem>
                 <identifier>RecordPrestataire_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Devise__c</fieldItem>
+                <identifier>RecordDevise_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Titulaire_du_compte__c</fieldItem>
+                <identifier>RecordTitulaire_du_compte__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-08f1a6b6-8bb9-477a-a105-832e12b192d4</name>
@@ -86,18 +126,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Principal__c</fieldItem>
-                <identifier>RecordPrincipal_cField</identifier>
+                <fieldItem>Record.Nom_de_la_banque__c</fieldItem>
+                <identifier>RecordNom_de_la_banque_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Devise__c</fieldItem>
-                <identifier>RecordDevise_cField</identifier>
+                <fieldItem>Record.DetailBanque__c</fieldItem>
+                <identifier>RecordDetailBanque_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -108,40 +148,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.PaysBeneficiaire__c</fieldItem>
                 <identifier>RecordPaysBeneficiaire_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Id_Ebury__c</fieldItem>
-                <identifier>RecordId_Ebury__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Titulaire_du_compte__c</fieldItem>
-                <identifier>RecordTitulaire_du_compte__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-378f935a-02ee-4605-b16b-8976db4274c5</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.DetailBanque__c</fieldItem>
-                <identifier>RecordDetailBanque_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -174,7 +180,17 @@
                 <identifier>RecordSWIFT_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-d432c538-b5cf-4397-9a6a-e70d59132dd5</name>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Identifiant_banque__c</fieldItem>
+                <identifier>RecordIdentifiant_banque_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-378f935a-02ee-4605-b16b-8976db4274c5</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -186,16 +202,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
                 <identifier>flexipage_column</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-d432c538-b5cf-4397-9a6a-e70d59132dd5</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-06c3a7ff-66fc-4c62-8ac5-c5714ae85ce1</name>
@@ -284,7 +290,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Information</value>
+                    <value>Détails de la banque</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection</identifier>
