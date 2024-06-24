@@ -223,6 +223,10 @@
         <label>Informations de facturation</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>Email_Finances__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Id_prestataire_Ebury__c</field>
             </layoutItems>
@@ -230,8 +234,26 @@
                 <behavior>Edit</behavior>
                 <field>Modalites_paiement__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Region_Etat__c</field>
+            </layoutItems>
         </layoutColumns>
-        <style>OneColumn</style>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Numero_d_immeuble__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Numero_d_appartement__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Etage__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
