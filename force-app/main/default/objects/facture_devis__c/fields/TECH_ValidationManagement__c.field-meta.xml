@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>TECH_ValidationMedical__c</fullName>
+    <fullName>TECH_ValidationManagement__c</fullName>
     <defaultValue>false</defaultValue>
-    <label>TECH_ValidationMedical</label>
+    <label>TECH_ValidationManagement</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

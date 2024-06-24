@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>etat__c</fullName>
+    <label>Etat</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Analyse</fullName>
+                <default>true</default>
+                <label>Analyse</label>
+            </value>
+            <value>
+                <fullName>Bon a payer</fullName>
+                <default>false</default>
+                <label>Bon à payer</label>
+            </value>
+            <value>
+                <fullName>Conforme et complet</fullName>
+                <default>false</default>
+                <label>Conforme et complet</label>
+            </value>
+            <value>
+                <fullName>En attente validation admin</fullName>
+                <default>false</default>
+                <label>En attente validation admin</label>
+            </value>
+            <value>
+                <fullName>Envoye Ebury</fullName>
+                <default>false</default>
+                <label>Envoyé Ebury</label>
+            </value>
+            <value>
+                <fullName>Facture payee</fullName>
+                <default>false</default>
+                <label>Facture payée</label>
+            </value>
+            <value>
+                <fullName>Facture refacturee</fullName>
+                <default>false</default>
+                <label>Facture refacturée</label>
+            </value>
+            <value>
+                <fullName>GOP Urgence</fullName>
+                <default>false</default>
+                <label>GOP Urgence</label>
+            </value>
+            <value>
+                <fullName>Incomplet</fullName>
+                <default>false</default>
+                <label>Incomplet</label>
+            </value>
+            <value>
+                <fullName>Mise en paiement</fullName>
+                <default>false</default>
+                <label>Mise en paiement</label>
+            </value>
+            <value>
+                <fullName>Non defini</fullName>
+                <default>false</default>
+                <label>Non défini</label>
+            </value>
+            <value>
+                <fullName>Prise en charge refusee</fullName>
+                <default>false</default>
+                <label>Prise en charge refusée</label>
+            </value>
+            <value>
+                <fullName>Prise en charge validee</fullName>
+                <default>false</default>
+                <label>Prise en charge validée</label>
+            </value>
+            <value>
+                <fullName>Rejete</fullName>
+                <default>false</default>
+                <label>Rejeté</label>
+            </value>
+            <value>
+                <fullName>Echec Paiement</fullName>
+                <default>false</default>
+                <label>Echec Paiement</label>
+            </value>
+            <value>
+                <fullName>Rembourse</fullName>
+                <default>false</default>
+                <label>Remboursé</label>
+            </value>
+            <value>
+                <fullName>Remboursement refacture</fullName>
+                <default>false</default>
+                <label>Remboursement refacturé</label>
+            </value>
+            <value>
+                <fullName>Conforme</fullName>
+                <default>false</default>
+                <label>Conforme</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
