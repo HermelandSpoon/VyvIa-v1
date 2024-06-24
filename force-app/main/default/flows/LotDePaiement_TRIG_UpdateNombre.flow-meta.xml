@@ -9,19 +9,19 @@
         <defaultConnector>
             <targetReference>Update_LDP_payee</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Statut rembourse</defaultConnectorLabel>
+        <defaultConnectorLabel>Etat rembourse</defaultConnectorLabel>
         <rules>
-            <name>Statut_Echec</name>
+            <name>Etat_Echec</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Statut__c</leftValueReference>
+                <leftValueReference>$Record.etat__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Echec Paiement</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record__Prior.Statut__c</leftValueReference>
+                <leftValueReference>$Record__Prior.etat__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Echec Paiement</stringValue>
@@ -30,20 +30,20 @@
             <connector>
                 <targetReference>Update_LDP</targetReference>
             </connector>
-            <label>Statut Echec</label>
+            <label>Etat Echec</label>
         </rules>
         <rules>
-            <name>Statut_Facture_Payee</name>
+            <name>Etat_Facture_Payee</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.Statut__c</leftValueReference>
+                <leftValueReference>$Record.etat__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Facture payee</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>$Record__Prior.Statut__c</leftValueReference>
+                <leftValueReference>$Record__Prior.etat__c</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Facture payee</stringValue>
@@ -52,9 +52,10 @@
             <connector>
                 <targetReference>Update_LDP_payee</targetReference>
             </connector>
-            <label>Statut Facture Payee</label>
+            <label>Etat Facture Payee</label>
         </rules>
     </decisions>
+    <description>Sprint 4</description>
     <environments>Default</environments>
     <formulas>
         <name>NombreLignePayee</name>
@@ -161,21 +162,21 @@
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>or</filterLogic>
         <filters>
-            <field>Statut__c</field>
+            <field>etat__c</field>
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Echec Paiement</stringValue>
             </value>
         </filters>
         <filters>
-            <field>Statut__c</field>
+            <field>etat__c</field>
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Facture payee</stringValue>
             </value>
         </filters>
         <filters>
-            <field>Statut__c</field>
+            <field>etat__c</field>
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Rembourse</stringValue>

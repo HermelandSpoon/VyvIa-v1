@@ -1,4 +1,4 @@
-import { LightningElement, track, api, wire } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import savePlafond from "@salesforce/apex/AP_LotDePaiementUtils.savePlafond";
 import savePretRefacturation from '@salesforce/apex/AP_LotDePaiementUtils.savePretRefacturation';
 
@@ -10,36 +10,47 @@ import getReportUrl from '@salesforce/apex/AP01LotDePaiement.getReportUrl';
 
 export default class Lwc01ProgressionBarPlafond extends LightningElement {
     @api recordId;
-    @track plafond = 550000;
-    @track montant = 0;
-    @track percentage;
-    @track diff;
-    @track width;
+    @api nombreEle = 0;
+    @api ldpRecord;
+
+    plafond = 550000;
+    montant = 0;
+    percentage;
+    diff;
+    width;
     montantValide = 0;
     statut;
     pretRefac
     errorMsg = '';
-    showPret=false;
+    showPret = false;
     showMontantValide = false;
     showError = false;
-    @api nombreEle = 0;
-    @api ldpRecord;
+    defaultRecordTypeId
+    nextLabel = ''
+    nextApi = ''
+    currApi = ''
+    showButton = false;
+    skip = ['Traitement', 'Paiement', 'Echec', 'Confirmation']
+    lstStatut = {}
+    EnvoyerAEbury
 
+    get formattedPlafond() {
+        // Convert decimal separator from period to comma
+        const formattedNumber = this.plafond.toLocaleString('fr-FR', { minimumFractionDigits: 2 });
 
-    async getPicklistValue() {
-        try {
-            this.lstStatut = await getPicklistValue({ objectName: 'Lot_paiement__c', fieldName: 'Statut__c' });
-        } catch (error) {
-            console.error('Error in retrieving picklist values: ', error);
-        }
+        // Replace period with comma for decimal separator
+        return formattedNumber.replace('.', ',');
     }
-    async connectedCallback() {
 
-        await this.getPicklistValue();
-
-        this.initialiseFields();
-        this.computeField();
-        this.sendReport(this.pretRefac)
+    connectedCallback() {
+        getPicklistValue({ objectName: 'Lot_paiement__c', fieldName: 'Statut__c' }).then(data => {
+            this.lstStatut = data
+            this.initialiseFields();
+            this.computeField();
+            this.sendReport(this.pretRefac)
+        }).catch(error => {
+            console.error('Error in retrieving picklist values: ', error);
+        })
 
 
         // Listen for the custom event to get amount from datatable
@@ -48,15 +59,33 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         // Listen for the custom event to get number of elements from datatable        
         window.addEventListener('numberElements', this.handleNumberElement)
     }
+
+    @wire(getRecord, { recordId: '$recordId', fields: [STATUT_FIELD] })
+    wireComputeField({ error, data }) {
+        if (data) {
+            console.log('wireComputeField executing')
+            this.currApi = getFieldValue(data, STATUT_FIELD);
+            this.EnvoyerAEbury = (this.currApi === 'Envoye Ebury' ? 'Votre lot de paiement a été envoyé et est en cours de traitement par Ebury' : '')
+            this.statut = this.currApi
+
+            this.computeButtonLabel(this.currApi);
+            this.sendReport(this.pretRefac)
+        } else if (error) {
+            console.error('Error retrieving record: ', error)
+        }
+    }
+
     handleTotalAmount = (event) => {
         this.montant = event.detail.value;
         this.montantValide = event.detail.valide
         this.calculatePercentage();
         this.calculateDiff();
     }
+
     handleNumberElement = (event) => {
         this.nombreEle = event.detail.value
     }
+
     initialiseFields() {
         this.recordId = this.ldpRecord.Id;
         if (this.ldpRecord.Montant_total__c != undefined) {
@@ -76,9 +105,9 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         this.diff = this.plafond - this.montant;
         if (this.percentage > 100) {
             this.width = 'width:100%';
-        } else if(this.percentage<0){
-            this.width = 'width:0%' 
-        }else{
+        } else if (this.percentage < 0) {
+            this.width = 'width:0%'
+        } else {
             this.width = 'width:' + this.percentage + '%';
 
         }
@@ -91,12 +120,12 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         });
         this.dispatchEvent(event);
 
-        if(this.statut=='Paiement'){
-            this.showPret=true;
-            this.showMontantValide=true;
-        } else if(this.statut=='Echec'){
-            this.showMontantValide=true;
-            this.showError=true;
+        if (this.statut == 'Paiement') {
+            this.showPret = true;
+            this.showMontantValide = true;
+        } else if (this.statut == 'Echec') {
+            this.showMontantValide = true;
+            this.showError = true;
         }
 
         this.pretRefac = this.ldpRecord.Pret_Refacturation__c
@@ -105,35 +134,29 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         this.showButton = this.pretRefac
 
         console.log("LDP pret refac: ", this.pretRefac);
-
     }
+
     handlePlafondChange(event) {
         this.plafond = event.target.value;
         this.calculatePercentage();
         this.calculateDiff();
     }
 
-    // handleMontantChange(event) {
-    //     this.montant = event.target.value;
-    //     this.calculatePercentage();
-    //     this.calculateDiff();
-    // }
-
     calculatePercentage() {
         this.percentage = ((parseFloat(this.montant) / parseFloat(this.plafond)) * 100).toFixed(0);
         if (this.percentage > 100) {
             this.width = 'width:100%';
-        } else if(this.percentage<0){
-            this.width = 'width:0%' 
-        }else{
+        } else if (this.percentage < 0) {
+            this.width = 'width:0%'
+        } else {
             this.width = 'width:' + this.percentage + '%';
-
         }
     }
 
     calculateDiff() {
         this.diff = parseFloat(this.plafond) - parseFloat(this.montant);
     }
+
     // Handle onblur event
     handlePlafondBlur() {
         // Call Apex method to save plafond
@@ -147,6 +170,7 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
                 console.error('Error saving plafond:', error);
             });
     }
+
     handleCheckboxChange(event) {
         let checked = event.target.checked
         // console.log('test', checked)
@@ -158,47 +182,15 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
             }).catch(error => {
                 console.error('Prêt Pour Refacturation:', error)
             })
-
         // this.computeButtonLabel(this.currApi);
     }
-    get formattedPlafond() {
-        // Convert decimal separator from period to comma
-        const formattedNumber = this.plafond.toLocaleString('fr-FR', { minimumFractionDigits: 2 });
 
-        // Replace period with comma for decimal separator
-        return formattedNumber.replace('.', ',');
-    }
-
-
-    // ----------------------------------------
-    @track defaultRecordTypeId
-    @track nextLabel = ''
-    @track nextApi = ''
-    @track currApi = ''
-    @track showButton = false;
-    skip = ['Traitement', 'Paiement', 'Echec', 'Confirmation']
-    lstStatut = {}
-    EnvoyerAEbury
-
-    @wire(getRecord, { recordId: '$recordId', fields: [STATUT_FIELD] })
-    async wireComputeField({ error, data }) {
-        if (data) {
-            console.log('wireComputeField executing')
-            this.currApi = getFieldValue(data, STATUT_FIELD);
-            this.EnvoyerAEbury = (this.currApi === 'Envoye Ebury' ? 'Votre lot de paiement a été envoyé et est en cours de traitement par Ebury' : '')
-            this.statut = this.currApi
-
-            this.computeButtonLabel(this.currApi);
-            this.sendReport(this.pretRefac)
-        }
-    }
     computeField() {
         this.EnvoyerAEbury = (this.currApi === 'Envoye Ebury' ? 'Votre lot de paiement a été envoyé et est en cours de traitement par Ebury' : '')
         this.computeButtonLabel(this.currApi);
     }
 
     computeButtonLabel(curr) {
-        console.log('computeButtonLabel executing')
         console.log('this.lstStatut', this.lstStatut)
         if (Array.isArray(this.lstStatut)) {
             const index = this.lstStatut.findIndex(stat => stat.value === curr);
@@ -208,7 +200,7 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
                 this.nextApi = temp.value;
                 this.showButton = !this.skip.includes(this.nextApi);
                 if (this.showButton) {
-                    this.nextLabel = (this.nextApi=='Envoye Ebury')?'Envoyer vers Ebury':temp.label;
+                    this.nextLabel = (this.nextApi == 'Envoye Ebury') ? 'Envoyer vers Ebury' : temp.label;
                 }
             } else {
                 console.log('computebuttonlabel showbutton false')
@@ -219,7 +211,7 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
 
     async handleClick(event) {
         if (this.nextLabel !== 'Rapport pour refacturation') {
-            if(this.nextLabel=='Envoyer vers Ebury'){
+            if (this.nextLabel == 'Envoyer vers Ebury') {
                 this.statut = 'Envoye Ebury';
                 const event = new CustomEvent('statusEnvoyer', {
                     detail: { value: this.statut }, bubbles: true, composed: true

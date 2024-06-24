@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             : 
+ * @last modified on  : 06-14-2024
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+**/
 public with sharing class AP02_Moyen {
 
     static final String SELECTED ='Sélectionné'; 
@@ -12,15 +19,15 @@ public with sharing class AP02_Moyen {
         }
     }
 
-    class GroupedComboOption{
-        public String groupName;
-        public List<ComboOption> items;
+    // class GroupedComboOption{
+    //     public String groupName;
+    //     public List<ComboOption> items;
 
-        GroupedComboOption(String groupName){
-            this.groupName=groupName;
-            items = new List<ComboOption>();
-        }
-    }
+    //     GroupedComboOption(String groupName){
+    //         this.groupName=groupName;
+    //         items = new List<ComboOption>();
+    //     }
+    // }
 
     // Inner class to encapsulate the response structure
     class Response{
@@ -29,7 +36,7 @@ public with sharing class AP02_Moyen {
 
         // for future
         Map<Id, List<ComboOption>> mapGarantieToMoyenDuServiceOptions;
-        Map<Id, List<GroupedComboOption>> mapGarantieToMoyenDuServiceGroupedOptions;
+        //Map<Id, List<GroupedComboOption>> mapGarantieToMoyenDuServiceGroupedOptions;
     }
     
 
@@ -45,7 +52,7 @@ public with sharing class AP02_Moyen {
     // Retrieves a list of garantie du service options and their corresponding
     // moyen du service based on a given facture ID
     @AuraEnabled(cacheable=true)
-    public static String getGarantieMoyen(String factureId) {
+    public static String getGarantieMoyen(String factureId, Boolean isFacture) {
         List<ComboOption> garantieOptions  = new List<ComboOption>();
         Map<Id, List<moyen_du_service__c>> mapGarantieToMoyenDuService = new Map<Id, List<moyen_du_service__c>>();
         Response resp = new Response();
@@ -59,7 +66,16 @@ public with sharing class AP02_Moyen {
         }
 
        // Query for the related case and its associated garanties
-       List<Case> caseList = [select id, (select id,name from Garanties_du_service__r), (select Name, garantie__c from moyens_du_service__r WHERE garantie__c!='') from case WHERE Id=:factureDevisList[0].service__c];
+       List<Case> caseList = new List<Case>();
+       system.debug('boolean:'+isFacture);
+       if(isFacture){
+        caseList = [select id, (select id,name from Garanties_du_service__r WHERE (Name != 'Frais médicaux hospitalier' AND Name != 'Frais médicaux non hospitaliers')), (select Name, garantie__c from moyens_du_service__r WHERE garantie__c!='') from case WHERE Id=:factureDevisList[0].service__c];
+        system.debug('case true: '+caseList);
+       }else{
+
+           caseList = [select id, (select id,name from Garanties_du_service__r), (select Name, garantie__c from moyens_du_service__r WHERE garantie__c!='') from case WHERE Id=:factureDevisList[0].service__c];
+           system.debug('case false: '+caseList);
+        }
         if (caseList.isEmpty()){
             return JSON.serialize(resp);
         }
@@ -97,7 +113,9 @@ public with sharing class AP02_Moyen {
         resp.mapGarantieToMoyenDuServiceOptions = mapGarantieToMoyenDuService;
 
        // Query for the related case and its associated garanties
-       List<Case> caseList = [select id, (select id,name from Garanties_du_service__r), (select Name,garantie__c from moyens_du_service__r WHERE garantie__c!='' AND selectionne__c = true) from case WHERE Id=:caseId];
+       //List<Case> caseList = [select id, (select id,name from Garanties_du_service__r), (select Name,garantie__c from moyens_du_service__r WHERE garantie__c!='' AND selectionne__c = true) from case WHERE Id=:caseId];
+       List<Case> caseList = [select id, (select id,name from Garanties_du_service__r) from case WHERE Id=:caseId];
+
         if (caseList.isEmpty()){
             return JSON.serialize(resp);
         }
@@ -111,17 +129,17 @@ public with sharing class AP02_Moyen {
             garantieOptions.add(new ComboOption(garantie.Name,garantie.Id));
 
             // build map
-            mapGarantieToMoyenDuService.put(garantie.Id, new List<ComboOption>());
+            //mapGarantieToMoyenDuService.put(garantie.Id, new List<ComboOption>());
             mapGarantieNameToId.put(garantie.Name, garantie.Id);
         }
         
         // mapGarantieToMoyenDuService
-        for (moyen_du_service__c moyen : caseList[0].Moyens_du_service__r) {
-            // if garantie is not related to the case garantie then ignore it
-            if(mapGarantieNameToId.get(moyen.garantie__c)!=null){
-                mapGarantieToMoyenDuService.get(mapGarantieNameToId.get(moyen.garantie__c)).add(new ComboOption(moyen.Name, moyen.Id));
-            }
-        }
+        // for (moyen_du_service__c moyen : caseList[0].Moyens_du_service__r) {
+        //     // if garantie is not related to the case garantie then ignore it
+        //     if(mapGarantieNameToId.get(moyen.garantie__c)!=null){
+        //         mapGarantieToMoyenDuService.get(mapGarantieNameToId.get(moyen.garantie__c)).add(new ComboOption(moyen.Name, moyen.Id));
+        //     }
+        // }
         return JSON.serialize(resp);
     }
 
@@ -129,15 +147,21 @@ public with sharing class AP02_Moyen {
     public static Map<String,Id> getFraisMedicauxGarantieMoyen(String caseId){
         Map<String,Id> resultMap = new Map<String,Id>();
 
-        List<garantie_du_service__c> garantieList = [SELECT Id, Name FROM garantie_du_service__c WHERE Name = 'Frais médicaux hospitalier' AND service__c=:caseId];
+        List<garantie_du_service__c> garantieList = [SELECT Id, Name FROM garantie_du_service__c WHERE (Name = 'Frais médicaux hospitalier' OR Name = 'Frais médicaux non hospitaliers') AND service__c=:caseId];
+        
         if (!garantieList.isEmpty()) {
-            resultMap.put('garantieId', garantieList[0].Id);
+            system.debug(garantieList);
+            //resultMap.put('garantieId', garantieList[0].Id);
+            for (garantie_du_service__c gar : garantieList) {
+                resultMap.put(gar.Name, gar.Id); 
+                system.debug('result map:'+resultMap);
+            }
         }
 
-        List<moyen_du_service__c> moyenList = [SELECT Id, Name FROM moyen_du_service__c WHERE Name = 'Prise en charge frais médicaux' AND service__c=:caseId];
-        if (!moyenList.isEmpty()) {
-            resultMap.put('moyenId', moyenList[0].Id);
-        }
+        // List<moyen_du_service__c> moyenList = [SELECT Id, Name FROM moyen_du_service__c WHERE Name = 'Prise en charge frais médicaux' AND service__c=:caseId];
+        // if (!moyenList.isEmpty()) {
+        //     resultMap.put('moyenId', moyenList[0].Id);
+        // }
 
         return resultMap;
     }
