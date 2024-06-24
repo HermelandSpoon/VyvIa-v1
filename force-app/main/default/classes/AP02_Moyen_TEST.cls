@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 06-07-2024
+ * @last modified on  : 06-14-2024
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 @isTest
@@ -35,7 +35,7 @@ public with sharing class AP02_Moyen_TEST {
     static void testGetGarantieMoyen() {
         test.startTest();
             String factureId = lstFac[0].id;
-            String result = AP02_Moyen.getGarantieMoyen(factureId);
+            String result = AP02_Moyen.getGarantieMoyen(factureId,false);
             System.assertNotEquals(null, result, 'Result should not be null');
         test.stopTest();
     }

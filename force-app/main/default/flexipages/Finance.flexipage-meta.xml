@@ -5,6 +5,18 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>CustomButton.facture_devis__c.Clone</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Devis</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>collapsed</name>
@@ -24,7 +36,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>0</value>
+                    <value>1</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -220,7 +232,48 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>subType</name>
-                    <value>Facturation</value>
+                    <value>Devis</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>lightning</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>type</name>
+                    <value>Finance</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:omniscript</componentName>
+                <identifier>runtime_omnistudio_omniscript4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Devis</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>direction</name>
+                    <value>ltr</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>display</name>
+                    <value>Display OmniScript on page</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>inlineVariant</name>
+                    <value>brand</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>language</name>
+                    <value>English</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>subType</name>
+                    <value>Facture</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>theme</name>
@@ -232,6 +285,54 @@
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:omniscript</componentName>
                 <identifier>runtime_omnistudio_omniscript3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Facture</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>direction</name>
+                    <value>ltr</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>display</name>
+                    <value>Display OmniScript on page</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>inlineVariant</name>
+                    <value>brand</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>language</name>
+                    <value>English</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>subType</name>
+                    <value>Remboursement</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>lightning</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>type</name>
+                    <value>Finance</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:omniscript</componentName>
+                <identifier>runtime_omnistudio_omniscript</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Remboursement</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-3f6b8325-4895-44e9-a2c2-b154974677f1</name>
@@ -315,153 +416,11 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>direction</name>
-                    <value>ltr</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>display</name>
-                    <value>Display OmniScript on page</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>inlineVariant</name>
-                    <value>brand</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>language</name>
-                    <value>English</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>subType</name>
-                    <value>Facturation</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>theme</name>
-                    <value>lightning</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>type</name>
-                    <value>Finance</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:omniscript</componentName>
-                <identifier>runtime_omnistudio_omniscript</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-c202fcdc-3d22-40e2-a177-5fc052fcae85</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-c202fcdc-3d22-40e2-a177-5fc052fcae85</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Informations</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab7</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-d572fd04-a848-4a28-8b7c-6e05943a86dd</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-a04bc2d6-558e-4cd8-a842-1ccc4d3a01fe</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
-                <visibilityRule>
-                    <booleanFilter>4 OR (5 AND 6) OR (1 AND 2 AND (3 OR 7))</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Analyse</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>En attente demande de pieces</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>En attente validation medicale</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Facture</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Sous_type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Frais Medicaux</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Devis</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Urgence__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-d572fd04-a848-4a28-8b7c-6e05943a86dd</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
-                <visibilityRule>
-                    <booleanFilter>((4 AND 6) OR 5) AND (1 OR 2 OR (3 AND 7))</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Analyse</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>En attente demande de pieces</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Statut__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>En attente validation medicale</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Devis</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Remboursement</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Sous_type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Frais Medicaux</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Urgence__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>rightcol</name>
