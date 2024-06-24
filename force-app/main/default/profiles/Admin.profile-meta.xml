@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <classAccesses>
-        <apexClass>qsydFileExplorerController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>qsydFileExplorerControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <custom>false</custom>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>facture_devis__c.Bon_a_payer_rapide__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>facture_devis__c.Date_echeance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>facture_devis__c.Type_de_devis__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Devis</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Facture</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.Remboursement</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.facture_assistance</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>facture_devis__c.facture_devis_tiers_payant</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>facture_devis__c.facture_had</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>
@@ -296,6 +333,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>FreezeUsers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>GiveRecognitionBadge</name>
     </userPermissions>
     <userPermissions>
@@ -380,6 +421,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageCustomDomains</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ManageCustomPermissions</name>
     </userPermissions>
     <userPermissions>
@@ -397,6 +442,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ManageDataIntegrations</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManageDevSandboxes</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -457,6 +506,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ManageMobile</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManageMobileAppSecurity</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -576,6 +629,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>MonitorLoginHistory</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>NewReportBuilder</name>
     </userPermissions>
     <userPermissions>
@@ -641,6 +698,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>SendCustomNotifications</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SendExternalEmailAvailable</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
