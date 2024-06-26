@@ -208,6 +208,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Remise_en_paiement__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sous_type__c</picklist>
         <values>
             <fullName>Assistance</fullName>
@@ -347,7 +358,7 @@
         <picklist>etat__c</picklist>
         <values>
             <fullName>Analyse</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Bon a payer</fullName>
@@ -382,10 +393,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>GOP Urgence</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Incomplet</fullName>
             <default>false</default>
         </values>
@@ -398,19 +405,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Prise en charge refusee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prise en charge validee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Rejete</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rembourse</fullName>
             <default>false</default>
         </values>
     </picklistValues>

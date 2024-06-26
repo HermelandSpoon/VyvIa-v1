@@ -2,8 +2,10 @@ import { LightningElement, api, wire } from 'lwc';
 import savePlafond from "@salesforce/apex/AP_LotDePaiementUtils.savePlafond";
 import savePretRefacturation from '@salesforce/apex/AP_LotDePaiementUtils.savePretRefacturation';
 
-import { getRecord, getFieldValue, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue, getFieldDisplayValue, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import STATUT_FIELD from "@salesforce/schema/Lot_paiement__c.Statut__c";
+import SOLDE_DISPONIBLE_EBURY_FIELD from "@salesforce/schema/Lot_paiement__c.Solde_disponible_ebury__c";
+import DATE_RECUPERATION_SOLDE_DISPONIBLE_EBURY_FIELD from "@salesforce/schema/Lot_paiement__c.Date_recuperation_solde_disponible_Ebury__c";
 import getPicklistValue from '@salesforce/apex/AP01LotDePaiement.getPicklistValue';
 import updateRecord from '@salesforce/apex/AP01LotDePaiement.updateRecord';
 import getReportUrl from '@salesforce/apex/AP01LotDePaiement.getReportUrl';
@@ -19,6 +21,8 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
     diff;
     width;
     montantValide = 0;
+    soldeDisponibleEbury;
+    dateRecuperationSoldeDisponibleEbury;
     statut;
     pretRefac
     errorMsg = '';
@@ -42,6 +46,10 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         return formattedNumber.replace('.', ',');
     }
 
+    get asFromEnvoyerEbury(){
+        return this.statut && this.statut!='Qualification' && this.statut!='Pret';
+    }
+
     connectedCallback() {
         getPicklistValue({ objectName: 'Lot_paiement__c', fieldName: 'Statut__c' }).then(data => {
             this.lstStatut = data
@@ -60,10 +68,11 @@ export default class Lwc01ProgressionBarPlafond extends LightningElement {
         window.addEventListener('numberElements', this.handleNumberElement)
     }
 
-    @wire(getRecord, { recordId: '$recordId', fields: [STATUT_FIELD] })
+    @wire(getRecord, { recordId: '$recordId', fields: [STATUT_FIELD, SOLDE_DISPONIBLE_EBURY_FIELD, DATE_RECUPERATION_SOLDE_DISPONIBLE_EBURY_FIELD ] })
     wireComputeField({ error, data }) {
         if (data) {
-            console.log('wireComputeField executing')
+            this.soldeDisponibleEbury = getFieldDisplayValue(data, SOLDE_DISPONIBLE_EBURY_FIELD)
+            this.dateRecuperationSoldeDisponibleEbury = getFieldDisplayValue(data, DATE_RECUPERATION_SOLDE_DISPONIBLE_EBURY_FIELD)
             this.currApi = getFieldValue(data, STATUT_FIELD);
             this.EnvoyerAEbury = (this.currApi === 'Envoye Ebury' ? 'Votre lot de paiement a été envoyé et est en cours de traitement par Ebury' : '')
             this.statut = this.currApi

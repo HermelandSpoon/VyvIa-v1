@@ -101,6 +101,11 @@
                 <default>false</default>
                 <label>Conforme</label>
             </value>
+            <value>
+                <fullName>En attente validation medicale</fullName>
+                <default>false</default>
+                <label>En attente validation médicale</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

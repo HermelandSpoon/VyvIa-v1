@@ -208,6 +208,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Remise_en_paiement__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sous_type__c</picklist>
         <values>
             <fullName>Assistance</fullName>
@@ -343,10 +354,6 @@
         <picklist>etat__c</picklist>
         <values>
             <fullName>Analyse</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>Conforme</fullName>
             <default>false</default>
         </values>
         <values>
@@ -354,7 +361,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Envoye Ebury</fullName>
+            <fullName>En attente validation medicale</fullName>
             <default>false</default>
         </values>
         <values>
