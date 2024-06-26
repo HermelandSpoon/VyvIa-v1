@@ -208,6 +208,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Remise_en_paiement__c</picklist>
+        <values>
+            <fullName>NON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OUI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Sous_type__c</picklist>
         <values>
             <fullName>Assistance</fullName>
@@ -343,7 +354,7 @@
         <picklist>etat__c</picklist>
         <values>
             <fullName>Analyse</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Bon a payer</fullName>
@@ -362,23 +373,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>En attente validation admin</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Envoye Ebury</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Facture payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Facture refacturee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>GOP Urgence</fullName>
             <default>false</default>
         </values>
         <values>
@@ -391,14 +386,6 @@
         </values>
         <values>
             <fullName>Non defini</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prise en charge refusee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prise en charge validee</fullName>
             <default>false</default>
         </values>
         <values>
