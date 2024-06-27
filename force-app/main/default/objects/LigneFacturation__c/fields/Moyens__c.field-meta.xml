@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Moyens__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Moyen de la garantie</label>
+    <referenceTo>moyen_garantie__c</referenceTo>
+    <relationshipLabel>Lignes de facturation</relationshipLabel>
+    <relationshipName>Lignes_de_facturation</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

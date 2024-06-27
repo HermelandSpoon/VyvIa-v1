@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>AP02_Moyen</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <custom>false</custom>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LigneFacturation__c.Moyens__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>facture_devis__c.Bon_a_payer_rapide__c</field>
@@ -9,6 +18,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>facture_devis__c.Date_echeance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>facture_devis__c.Remise_en_paiement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
