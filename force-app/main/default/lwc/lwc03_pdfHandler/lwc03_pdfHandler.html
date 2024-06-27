@@ -10,10 +10,14 @@
       <div class="b-grid b-jc-between"
         style="grid-template-columns: repeat(3, 1fr); grid-gap: 2rem; grid-auto-rows: minmax(min-content, max-content);">
         <template for:each={files} for:item="file">
-          <div key={file.Id} class="b-h-100 b-flex b-fd-col b-jc-between b-ai-center">
+          <div key={file.Id} class="b-p-rel b-h-100 b-flex b-fd-col b-jc-between b-ai-center">
+            <div class="b-p-abs b-top-0 b-left-0 slds-p-left_xx-small slds-p-right_xx-small slds-m-around_x-small"
+              style="border-radius: 4px; background: rgb(65, 148, 249); color: white; font-weight: bold">
+              {file.FileType}
+            </div>
             <img src={file.renderUrl} alt={file.id} height="60">
             <p class="b-file" data-id={file.Id}>
-              {file.Title}
+              {file.displayTitle}
             </p>
 
             <template lwc:if={file.selectedEntire}>
@@ -28,9 +32,12 @@
             </template>
             <template lwc:else>
               <div class="b-flex b-jc-between" style="height: 40px">
-                <button class="b-button slds-m-right_small" onclick={handleSelectEntireFile}
-                  data-id={file.Id}>Sélectionner le document</button>
-                <button class="b-button" onclick={handleFileClick} data-id={file.Id}>Découper le document</button>
+                <button class="b-button" onclick={handleSelectEntireFile} data-id={file.Id}>Sélectionner le
+                  document</button>
+                <template lwc:if={file.isPdf}>
+                  <button class="b-button slds-m-left_small" onclick={handleFileClick} data-id={file.Id}>Découper le
+                    document</button>
+                </template>
               </div>
             </template>
           </div>
