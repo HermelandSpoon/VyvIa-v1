@@ -6,6 +6,7 @@ import { createRecord, getRecord } from 'lightning/uiRecordApi';
 import TITLE_FIELD from "@salesforce/schema/ContentVersion.Title";
 import VERSION_DATA_FIELD from "@salesforce/schema/ContentVersion.VersionData";
 
+
 const TabKind = {
   AttachedFiles: 0,
   NewFiles: 1,
@@ -117,10 +118,17 @@ export default class Lwc03_pdfHandler extends LightningElement {
     getRelatedFiles({ recordId: this.recordId })
       .then((data) => {
         this.files = data.map((file) => {
+          let displayTitle = file.Title;
+          if (displayTitle.length > 15) {
+            displayTitle = displayTitle.slice(0, 15) + "...";
+          }
+
           return {
             ...file,
+            displayTitle: displayTitle,
             renderUrl: this.generateRenditionUrl(file.Id),
             selectedEntire: false,
+            isPdf: file.FileType === "PDF"
           };
         });
       })
@@ -179,12 +187,25 @@ export default class Lwc03_pdfHandler extends LightningElement {
     }
     
     this.generatingFile = true;
+    
+    const size = new Blob([info.data]).size;
+    if (size > 4 * 1024 * 1024) {
+      this.showInformation(
+        "Votre document est trop volumineux pour être découpé dans Saleforce. Veuillez utiliser un outil externe pour procéder à la découpe", 
+        InformationLevel.Log
+      );
+      setTimeout(() => {
+            this.generatingFile = false;
+      }, 3000);
+      return;
+    }
+
     this.showInformation("Votre document est en cours de création", InformationLevel.Log);
 
     const contentVersionFields = {
       Title: info.name,
       PathOnClient: info.name,
-      VersionData: info.data.split(",")[1]
+      VersionData: info.data
     };
     
     const record = {apiName: "ContentVersion", fields: contentVersionFields};
@@ -212,7 +233,9 @@ export default class Lwc03_pdfHandler extends LightningElement {
         this.generatingFile = false;
       })
       .catch((error) => {
-        // console.error("##NB failed to create ContentVersion: ", error.body ? error.body.message : error.message);
+        console.error("##NB failed to create ContentVersion: ", error);
+        Object.keys(error.body).forEach((field) => console.log(`${field}: ${error.body[field]}`))
+
 
         this.showInformation("Une erreur est survenue lors de la création de votre document", InformationLevel.Log);
         setTimeout(() => {
