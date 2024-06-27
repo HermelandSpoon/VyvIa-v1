@@ -14,7 +14,7 @@ public with sharing class LWC02_PdfHandler {
 
         if (setContentDocumentIds.size() > 0) {
             lstContentVersions = [
-                SELECT Id, Title, VersionDataUrl, ContentDocumentId
+                SELECT Id, Title, VersionDataUrl, FileType, ContentDocumentId
                 FROM ContentVersion
                 WHERE ContentDocumentId IN :setContentDocumentIds
             ];
